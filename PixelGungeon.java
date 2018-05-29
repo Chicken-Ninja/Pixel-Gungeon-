@@ -2,26 +2,25 @@ public class PixelGungeon{
     private char[][] map;
 
     public PixelGungeon(){
-	map = new char[10][10];
+	map = new Tile[10][10];
 	mapGen();
     }
 
     public void mapGen(){
 	for (int r=0; r<map.length; r++){
 	    for (int c=0; c<map[0].length; c++){
-		map[r][c] = ' ';
+		map[r][c] = new Tile(r , c , false);
 	    }
 	}
 	for (int n=0; n<map[0].length; n++){
-	    map[0][n] = 'W';
-	    map[map.length-1][n] = 'W';
+	    map[0][n] = new Tile(r , c , true);
+	    map[map.length-1][n] = new Tile( r , c , true);
 	}
 	for (int n=0; n<map.length; n++){
-	    map[n][0] = 'W';
-	    map[n][map[0].length-1] = 'W';
+	    map[n][0] = new Tile(r , c , true) ;
+	    map[n][map[0].length-1] = new Tile( r  , c , true);
 	}
-	map[0][1] = 'S';
-	map[8][9] = 'E';
+	map[0][1] = new Player();
     }
 
     public String toString(){
@@ -31,7 +30,24 @@ public class PixelGungeon{
 	}
 	for (int r=0; r<map.length; r++){
 	    for (int c=0; c<map[0].length; c++){
-		dump += map[r][c];
+		if(map[r][c].isWall)
+		    {
+			dump += "W";
+		    }
+		else if(map[r][c].checkPlayer)
+		    {
+			dump += "P";
+		    }
+		else if(map[r][c].checkMonster)
+		    {
+			dump += "M";
+		    }
+		else if(map[r][c].isTile())
+		    {
+			dump += " ";
+		    }
+		     
+		       
 	    }
 	    dump += "\n";
 	}
