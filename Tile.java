@@ -21,7 +21,13 @@ public class Tile
     }
     
     
-    
+    public Boolean isTile() 
+    {
+	if(!(isWall && hasPlayer && hasMonster))
+	    {
+		return true ; 
+	    }
+    }
     
     public void PlayerOn(Player a) 
     {
