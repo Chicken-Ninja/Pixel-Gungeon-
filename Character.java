@@ -2,6 +2,7 @@ abstract class Character
 {
     int health , mana;
     String name;
+	int x, y;
 
     public int getHealth () 
     {
@@ -33,15 +34,23 @@ abstract class Character
 	name = a; 
     }
 
-    abstract void Attack();
+    public int getX()
+    {
+	return x;
+    }
     
-    abstract void move();
+    public int getY()
+    {
+	return y;
+    }
+
+    public void setPos(int _x, int _y)
+    {
+		x = _x;
+		y = _y;
+    }
+
+    abstract void Attack(char direction);
     
-    
-
-
-
-
-
-
+    abstract void move(char direction);
 }

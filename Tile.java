@@ -10,8 +10,8 @@ public class Tile
 
     public Tile(int x , int y , Boolean Wall) 
     {
-	x = row; 
-	y = col; 
+	row = x; 
+	col = y; 
 	isWall = Wall;
     }
     

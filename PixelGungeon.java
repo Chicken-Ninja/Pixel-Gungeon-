@@ -1,5 +1,5 @@
 public class PixelGungeon{
-    private char[][] map;
+    private Tile[][] map;
 
     public PixelGungeon(){
 	map = new Tile[10][10];
@@ -59,6 +59,4 @@ public class PixelGungeon{
 	PixelGungeon a = new PixelGungeon();
 	System.out.println(a.toString());
     }
-	   
-					
 }
