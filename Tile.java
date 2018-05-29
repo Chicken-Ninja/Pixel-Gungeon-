@@ -3,8 +3,8 @@ public class Tile
     Boolean hasPlayer,hasMonster,isWall;
     int row;
     int col; 
-    Monster monsterStore; 
-    Player playerStore;
+    Monster monsterStore = null; 
+    Player playerStore = null;
     
     
 
@@ -27,11 +27,12 @@ public class Tile
 	    {
 		return true ; 
 	    }
+	else { return false;}
     }
     
     public void PlayerOn(Player a) 
     {
-	if(!(monsterStore) && playerStore == null && !(isWall))
+	if(!(hasMonster) && playerStore == null && !(isWall))
 	    {
 		hasPlayer = true;
 		playerStore = a;
@@ -41,7 +42,7 @@ public class Tile
     
     public void MonsterOn(Monster a) 
     {
-	if(!(playerStore) && monsterStore == null && !{isWall))
+	if(!(hasPlayer) && monsterStore == null && !(isWall))
 	    {
 		hasMonster = true; 
 		monsterStore = a;
@@ -61,7 +62,7 @@ public class Tile
     public void removeMonster() 
     {
 	if(!(isWall) && monsterStore != null && hasMonster)
-	monster = null;
+	monsterStore = null;
 	hasMonster = false; 
     }
     
@@ -69,8 +70,9 @@ public class Tile
     {
 	if(!(isWall))
 	    {
-		return hasPlayer();
+		return hasPlayer;
 	    }
+	else{ return false;}
     }
 
     
@@ -78,8 +80,9 @@ public class Tile
     {
 	if(!(isWall))
 	    {
-		return hasMonster();
+		return hasMonster;
 	    }
+	else{ return false;}
     }
 }
 
