@@ -3,6 +3,7 @@ abstract class Character
     int health , mana;
     String name;
 	int x, y;
+	char dir;
 
     public int getHealth () 
     {
@@ -49,8 +50,16 @@ abstract class Character
 		x = _x;
 		y = _y;
     }
+	
+	public char getDir(){
+		return dir;
+	}
+	
+	public void setDir(char direction){
+		dir = direction;
+	}
 
-    abstract void Attack(char direction);
+    abstract void Attack();
     
     abstract void move(char direction);
 }

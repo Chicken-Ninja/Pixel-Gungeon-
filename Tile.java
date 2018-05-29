@@ -13,6 +13,8 @@ public class Tile
 	row = x; 
 	col = y; 
 	isWall = Wall;
+	hasPlayer = false;
+	hasMonster = false;
     }
     
     public Boolean isWall() 
@@ -84,6 +86,14 @@ public class Tile
 	    }
 	else{ return false;}
     }
+	
+	public Player player(){
+		return playerStore;
+	}
+	
+	public Monster monster(){
+		return monsterStore;
+	}
 }
 
 	

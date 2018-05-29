@@ -20,13 +20,14 @@ public class PixelGungeon{
 	    map[n][0] = new Tile(n , 0 , true) ;
 	    map[n][map[0].length-1] = new Tile( n  , map[0].length - 1 , true);
 	}
-	Tile a = new Tile( 0 , 1 , false);
-	Player b = new Player();
-	a.PlayerOn(b);
-	map[0][1] = a;
+	map[0][1] = new Tile(0,1, false);
+	map[8][9] = new Tile(8,9, false);
+	Player b = new Player(10,10,"Jeff",0,1);
+	map[0][1].PlayerOn(b);
+	Monster m = new Monster(10,10,"Bob",4,3,'W');
+	map[4][3].MonsterOn(m);
     }
 
-    
 
     public String toString(){
 	String dump = "";
