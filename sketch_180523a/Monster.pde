@@ -9,6 +9,11 @@ public class Monster extends Character{
     dir = direction;
   }
 
+  public void behavior(){
+    char[] dirs = {'N', 'E', 'S', 'W'};
+    move(dirs[floor(random(4)) + 1]);
+  }
+  
   public void Attack(){
   }
     
