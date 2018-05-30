@@ -1,7 +1,8 @@
 public class PixelGungeon{
     private Tile[][] map;
-
+    private Player playerStore;
     public PixelGungeon(){
+    public Character[] turnOrder;
   map = new Tile[10][10];
   mapGen();
     }
@@ -24,6 +25,8 @@ public class PixelGungeon{
   map[8][9] = new Tile(8,9, false);
   Player b = new Player(10,10,"Jeff",0,1);
   map[0][1].PlayerOn(b);
+  playerStore = b; 
+  b.setPos(0 , 1);
   Monster m = new Monster(10,10,"Bob",4,3,'W');
   map[4][3].MonsterOn(m);
     }
@@ -59,6 +62,52 @@ public class PixelGungeon{
   }
   return dump;
     }
+        
+    public void MoveRight() 
+      {
+          int row = playerStore.getX();
+          int col = playerStore.getY();
+          if(col + 1 < map[0].length && !(map[row][col + 1].checkMonster()))
+            {
+               map[row][col].removePlayer();
+               map[row][col+1].PlayerOn(playerStore);
+            }
+      }
+      
+    public void MoveLeft() 
+      {
+          int row = playerStore.getX();
+          int col = playerStore.getY();
+          if(col - 1 >= 0 && !(map[row][col - 1].checkMonster()))
+          {
+              map[row][col].removePlayer();
+              map[row][col - 1].PlayerOn(playerStore);
+          }
+      }
+      
+    public void MoveUp()
+      {
+          int row = playerStore.getX();
+          int col = playerStore.getY();
+          if(row  - 1 >= 0 && !(map[row - 1][col].checkMonster()))
+            {
+                map[row][col].removePlayer();
+                map[row - 1][col];
+            }
+      }
+    public void MoveDown() 
+      {
+          int row = playerStore.getX();
+          int col = playerStore.getY();
+          if(row + 1 < map.length && !(map[row + 1][col].checkMonster()))
+            {
+                map[row][col].removePlayer();
+                map[row + 1][col].PlayerOn(playerStore);
+            }
+      }
+      
+      
+      
     
     public void display(){
       for (int r=0; r<map.length; r++){
