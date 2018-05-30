@@ -101,9 +101,5 @@ PixelGungeon a;
     background(255);
     fill(0);
     text(frameRate, 20, 20);
-    for (int r=0; r<10; r++){
-      for (int c=0; c<10; c++){
-        a.display();
-      }
-    }
+    a.display();
   }
