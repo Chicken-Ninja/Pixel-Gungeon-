@@ -13,16 +13,16 @@ public class Player extends Character{
     
     public void move(char direction){
     dir = direction;
-    if (direction == 'N'){
+    if (direction == 'w'){
       setPos(getX()-1, getY());
     }
-    else if (direction == 'E'){
+    else if (direction == 'd'){
       setPos(getX(), getY()+1);
     }
-    else if (direction == 'S'){
+    else if (direction == 's'){
       setPos(getX()+1, getY());
     }
-    else if (direction == 'W'){
+    else if (direction == 'a'){
       setPos(getX(), getY()-1);
     }
     else {

@@ -31,77 +31,87 @@ public class PixelGungeon{
     }
 
 
-    public String toString(){
+  public String toString(){
   String dump = "";
   if (map.length==0){
       return "[]";
   }
-  for (int r=0; r<map.length; r++){
-      for (int c=0; c<map[0].length; c++){
-    if(map[r][c].isWall)
+  for (int c=0; c<map.length; c++){
+     for (int r=0; r<map[0].length; r++){
+        if(map[r][c].isWall)
         {
-      dump += "W";
+        dump += "W";
         }
-    else if(map[r][c].checkPlayer())
+        else if(map[r][c].checkPlayer())
         {
-      dump += "P";
+        dump += "P";
         }
-    else if(map[r][c].checkMonster())
+        else if(map[r][c].checkMonster())
         {
-      dump += "M";
+        dump += "M";
         }
-    else if(map[r][c].isTile())
+        else if(map[r][c].isTile())
         {
-      dump += " ";
+        dump += " ";
         }
-         
-           
-      }
-      dump += "\n";
+     }
+     dump += "\n";
   }
   return dump;
-    }
+  }
         
     public void moveRight() 
       {
+        System.out.println("Move right");
           int row = playerStore.getX();
           int col = playerStore.getY();
-          if(row + 1 < map.length) // && !(map[row][col + 1].checkMonster()) && !(map[row][col + 1].isWall()))
+          if(row + 1 < map.length && !(map[row+1][col].checkMonster()) && !(map[row+1][col].isWall()))
             {
                map[row][col].removePlayer();
                map[row+1][col].PlayerOn(playerStore);
+               playerStore.setPos(row+1, col);
+               System.out.println("Player loc: " + row + ", " + col);
             }
       }
       
     public void moveLeft() 
       {
+        System.out.println("Move left");
           int row = playerStore.getX();
           int col = playerStore.getY();
-          if(row - 1 >= 0) // && !(map[row][col - 1].checkMonster()) && !(map[row][col - 1].isWall()))
+          if(row - 1 >= 0 && !(map[row-1][col].checkMonster()) && !(map[row-1][col].isWall()))
           {
               map[row][col].removePlayer();
               map[row-1][col].PlayerOn(playerStore);
+              playerStore.setPos(row-1, col);
+              System.out.println("Player loc: " + row + ", " + col);
           }
       }
       
     public void moveUp()
       {
+        System.out.println("Move up");
           int row = playerStore.getX();
           int col = playerStore.getY();
-          if(col  - 1 >= 0) // && !(map[row - 1][col].checkMonster()) && !(map[row-1][col].isWall()))
+          if(col  - 1 >= 0 && !(map[row][col-1].checkMonster()) && !(map[row][col-1].isWall()))
             {
                 map[row][col].removePlayer();
                 map[row][col-1].PlayerOn(playerStore);
+                playerStore.setPos(row, col-1);
+                System.out.println("Player loc: " + row + ", " + col);
             }
       }
     public void moveDown() 
       {
+          System.out.println("Move down");
           int row = playerStore.getX();
           int col = playerStore.getY();
-          if(col + 1 < map.length) // && !(map[row + 1][col].checkMonster()) && !(map[row+1][col].isWall()))
+          if(col + 1 < map.length && !(map[row][col+1].checkMonster()) && !(map[row][col+1].isWall()))
             {
                 map[row][col].removePlayer();
                 map[row][col+1].PlayerOn(playerStore);
+                playerStore.setPos(row, col+1);
+                System.out.println("Player loc: " + row + ", " + col);
             }
       }
       
@@ -118,6 +128,7 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkPlayer())
           {
+            //System.out.println("player draw: " + r + ", " + c);
             ellipseMode(CORNER);
             fill(50,140,200);
             ellipse(r*50, c*50, 50, 50);
@@ -141,6 +152,7 @@ public class PixelGungeon{
 PixelGungeon a;
 
   void keyPressed() {
+    System.out.println("Key: " + key);
     if (key == 'w'){
       a.moveUp();
     }
@@ -165,4 +177,5 @@ PixelGungeon a;
     fill(0);
     text(frameRate, 20, 20);
     a.display();
+    //System.out.println(a);
   }
