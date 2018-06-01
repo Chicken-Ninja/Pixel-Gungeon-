@@ -27,8 +27,7 @@ public class PixelGungeon{
   map[8][9] = new Tile(8,9, false);
   Player b = new Player(10,10,"Jeff",0,1);
   map[0][1].PlayerOn(b);
-  playerStore = b; 
-  //b.setPos(0 , 1);
+  playerStore = b;
   Monster m = new Monster(10,10,"Bob",4,3);
   enemies.add(m);
   map[4][3].MonsterOn(m);
@@ -91,7 +90,7 @@ public class PixelGungeon{
         System.out.println("Move left");
           int row = character.getX();
           int col = character.getY();
-          if(row - 1 < map.length && !(map[row-1][col].checkMonster() || map[row-1][col].checkPlayer()) && !(map[row-1][col].isWall()))
+          if(row - 1 >=0 && !(map[row-1][col].checkMonster() || map[row-1][col].checkPlayer()) && !(map[row-1][col].isWall()))
             {
               if (character instanceof Player){
                map[row][col].removePlayer();
@@ -113,7 +112,7 @@ public class PixelGungeon{
         System.out.println("Move up");
           int row = character.getX();
           int col = character.getY();
-          if(col - 1 < map.length && !(map[row][col-1].checkMonster() || map[row][col-1].checkPlayer()) && !(map[row][col-1].isWall()))
+          if(col - 1 >=0 && !(map[row][col-1].checkMonster() || map[row][col-1].checkPlayer()) && !(map[row][col-1].isWall()))
             {
               if (character instanceof Player){
                map[row][col].removePlayer();
