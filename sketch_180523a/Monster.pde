@@ -1,4 +1,12 @@
 public class Monster extends Character{
+  
+  public Monster(int _x, int _y){
+    health = 40;
+    mana = 10;
+    name = "Red Boy";
+    x = _x;
+    y = _y;
+  }
     
   public Monster(int h, int m, String n, int _x, int _y){
     health = h;

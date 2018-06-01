@@ -28,10 +28,10 @@ public class PixelGungeon{
   Player b = new Player(10,10,"Jeff",0,1);
   map[0][1].PlayerOn(b);
   playerStore = b;
-  Monster m = new Monster(10,10,"Bob",4,3);
+  Monster m = new Monster(4,3);
   enemies.add(m);
   map[4][3].MonsterOn(m);
-  Monster m2 = new Monster(10,10,"Bob2",8,8);
+  Monster m2 = new Monster(8,8);
   enemies.add(m2);
   map[8][8].MonsterOn(m2);
     }
