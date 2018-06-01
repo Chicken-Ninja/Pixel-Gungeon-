@@ -1,6 +1,6 @@
 public class Monster extends Character{
     
-  public Monster(int h, int m, String n, int _x, int _y, char direction){
+  public Monster(float h, float m, String n, float _x, float _y, char direction){
     health = h;
     mana = m;
     name = n;

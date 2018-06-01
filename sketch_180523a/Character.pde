@@ -1,26 +1,26 @@
 abstract class Character 
 {
-    int health , mana;
+    float health , mana;
     String name;
-  int x, y;
-  char dir;
-
-    public int getHealth () 
+    float x, y;
+    char dir;
+      
+    public float getHealth () 
     {
   return health; 
     }
     
-    public void setHealth(int a) 
+    public void setHealth(float a) 
     {
   health = a;
     }
 
-    public int getmana() 
+    public float getmana() 
     {
   return mana; 
     }
     
-    public void setmana( int a )
+    public void setmana( float a )
     {
   mana = a ;
     }
@@ -35,17 +35,17 @@ abstract class Character
   name = a; 
     }
 
-    public int getX()
+    public float getX()
     {
   return x;
     }
     
-    public int getY()
+    public float getY()
     {
   return y;
     }
 
-    public void setPos(int _x, int _y)
+    public void setPos(float _x, float _y)
     {
     x = _x;
     y = _y;
@@ -59,7 +59,7 @@ abstract class Character
     dir = direction;
   }
 
-    abstract void Attack();
+    abstract float Attack();
     
     abstract void move(char direction);
 }
