@@ -269,10 +269,13 @@ public class PixelGungeon{
 }
 
 PixelGungeon a;
-int oldTime = millis();
+boolean nextTurn;
 
    void keyPressed(){
      a.playerMove(key);
+     if (key == 'w' || key == 'd' || key == 's' || key == 'a'){
+       nextTurn = true;
+     }
    }
    
   void setup(){
@@ -285,9 +288,9 @@ int oldTime = millis();
     fill(0);
     text(frameRate, 20, 20);
     a.display();
-    if (millis()-oldTime >= 1000){
+    if (nextTurn){
       a.monsterMove();
-      oldTime = millis();
+      nextTurn = false;
     }
     //System.out.println(a);
   }
