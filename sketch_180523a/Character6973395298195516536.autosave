@@ -59,7 +59,8 @@ abstract class Character
     dir = direction;
   }
 
-    abstract int Attack();
+  abstract int Attack() ;
+
     
     abstract void move(char direction);
 }

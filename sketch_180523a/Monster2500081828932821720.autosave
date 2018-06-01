@@ -15,8 +15,10 @@ public class Monster extends Character{
   }
   
   public int Attack(){
-    return 0;
+  return 0;
+  
   }
+  
     
     public void move(char direction){
     dir = direction;

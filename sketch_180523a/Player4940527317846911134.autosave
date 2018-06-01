@@ -10,14 +10,13 @@ public class Player extends Character{
     x = _x;
     y = _y;
     dir = 'S';
-    weaponStore = new Weapon(5 , 1 , 1 , "Excalibur");
+    weaponStore = new Weapon(3 , 1 , 1 , "Excalibur");
     armorStore = new Armor(3 , 1 , "Junkan");
   }
   
   public int Attack()
   {
-     return 
-     (int)random(0 , 10) + weaponStore.getDamage();
+     return (int)random(0 , 10) + weaponStore.getDamage();
   }
     
     public void move(char direction){

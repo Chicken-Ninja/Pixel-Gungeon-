@@ -87,11 +87,11 @@ public class Tile
   else{ return false;}
     }
   
-  public Player player(){
+  public Player getPlayer(){
     return playerStore;
   }
   
-  public Monster monster(){
+  public Monster getMonster(){
     return monsterStore;
   }
 }
