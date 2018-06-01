@@ -1,10 +1,21 @@
 public class Player extends Character{
+  Weapon weaponStore;
+  Armor armorStore;
+  
   public Player(int h, int m, String n, int _x, int _y){
     health = h;
     mana = m;
     name = n;
     x = _x;
     y = _y;
+    weaponStore = new Weapon(5 , 1 , 1 , "Excalibur");
+    armorStore = new Armor(3 , 1 , "Junkan");
+  }
+  
+  public int Attack()
+  {
+     return 
+     (int)random(0 , 10) + weaponStore.getDamage();
   }
   
    public void move(char direction){
