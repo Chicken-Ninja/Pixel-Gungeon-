@@ -1,35 +1,25 @@
 public class Monster extends Character{
     
-  public Monster(int h, int m, String n, int _x, int _y, char direction){
+  public Monster(int h, int m, String n, int _x, int _y){
     health = h;
     mana = m;
     name = n;
     x = _x;
     y = _y;
+  }
+  public void move(char direction){
     dir = direction;
-  }
-
-  public void behavior(){
-    char[] dirs = {'N', 'E', 'S', 'W'};
-    move(dirs[floor(random(4)) + 1]);
-  }
-  
-  public void Attack(){
-  }
-    
-    public void move(char direction){
-    dir = direction;
-    if (direction == 'N'){
-      setPos(getX()-1, getY());
+    if (direction == 'w'){
+      setPos(getX(), getY()-1);
     }
-    else if (direction == 'E'){
-      setPos(getX(), getY()+1);
-    }
-    else if (direction == 'S'){
+    else if (direction == 'd'){
       setPos(getX()+1, getY());
     }
-    else if (direction == 'W'){
-      setPos(getX(), getY()-1);
+    else if (direction == 's'){
+      setPos(getX(), getY()+1);
+    }
+    else if (direction == 'a'){
+      setPos(getX()-1, getY());
     }
     else {
       System.out.println("Not a direction");

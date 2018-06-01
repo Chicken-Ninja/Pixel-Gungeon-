@@ -58,8 +58,6 @@ abstract class Character
   public void setDir(char direction){
     dir = direction;
   }
-
-    abstract void Attack();
     
     abstract void move(char direction);
 }

@@ -1,6 +1,9 @@
 public class PixelGungeon{
     private Tile[][] map;
     private Player playerStore;
+    private ArrayList<Monster> enemies = new ArrayList();
+    private char[] dirs = {'w','d','s','a'};
+    
     public PixelGungeon(){
   map = new Tile[10][10];
   mapGen();
@@ -26,7 +29,8 @@ public class PixelGungeon{
   map[0][1].PlayerOn(b);
   playerStore = b; 
   //b.setPos(0 , 1);
-  Monster m = new Monster(10,10,"Bob",4,3,'W');
+  Monster m = new Monster(10,10,"Bob",4,3);
+  enemies.add(m);
   map[4][3].MonsterOn(m);
     }
 
@@ -60,62 +64,115 @@ public class PixelGungeon{
   return dump;
   }
         
-    public void moveRight() 
+    public void moveRight(Character character) 
       {
         System.out.println("Move right");
-          int row = playerStore.getX();
-          int col = playerStore.getY();
-          if(row + 1 < map.length && !(map[row+1][col].checkMonster()) && !(map[row+1][col].isWall()))
+          int row = character.getX();
+          int col = character.getY();
+          if(row + 1 < map.length && !(map[row+1][col].checkMonster() || map[row+1][col].checkPlayer()) && !(map[row+1][col].isWall()))
             {
+              if (character instanceof Player){
                map[row][col].removePlayer();
-               map[row+1][col].PlayerOn(playerStore);
-               playerStore.setPos(row+1, col);
+               map[row+1][col].PlayerOn((Player)character);
+               character.move('d');
                System.out.println("Player loc: " + row + ", " + col);
+              }
+              else {
+               map[row][col].removeMonster();
+               map[row+1][col].MonsterOn((Monster)character);
+               character.move('d');
+               System.out.println("Monster loc: " + row + ", " + col);
+              }
             }
       }
       
-    public void moveLeft() 
+     public void moveLeft(Character character) 
       {
         System.out.println("Move left");
-          int row = playerStore.getX();
-          int col = playerStore.getY();
-          if(row - 1 >= 0 && !(map[row-1][col].checkMonster()) && !(map[row-1][col].isWall()))
-          {
-              map[row][col].removePlayer();
-              map[row-1][col].PlayerOn(playerStore);
-              playerStore.setPos(row-1, col);
-              System.out.println("Player loc: " + row + ", " + col);
-          }
+          int row = character.getX();
+          int col = character.getY();
+          if(row - 1 < map.length && !(map[row-1][col].checkMonster() || map[row-1][col].checkPlayer()) && !(map[row-1][col].isWall()))
+            {
+              if (character instanceof Player){
+               map[row][col].removePlayer();
+               map[row-1][col].PlayerOn((Player)character);
+               character.move('a');
+               System.out.println("Player loc: " + row + ", " + col);
+              }
+              else {
+               map[row][col].removeMonster();
+               map[row-1][col].MonsterOn((Monster)character);
+               character.move('a');
+               System.out.println("Monster loc: " + row + ", " + col);
+              }
+            }
       }
       
-    public void moveUp()
+     public void moveUp(Character character) 
       {
         System.out.println("Move up");
-          int row = playerStore.getX();
-          int col = playerStore.getY();
-          if(col  - 1 >= 0 && !(map[row][col-1].checkMonster()) && !(map[row][col-1].isWall()))
+          int row = character.getX();
+          int col = character.getY();
+          if(col - 1 < map.length && !(map[row][col-1].checkMonster() || map[row][col-1].checkPlayer()) && !(map[row][col-1].isWall()))
             {
-                map[row][col].removePlayer();
-                map[row][col-1].PlayerOn(playerStore);
-                playerStore.setPos(row, col-1);
-                System.out.println("Player loc: " + row + ", " + col);
+              if (character instanceof Player){
+               map[row][col].removePlayer();
+               map[row][col-1].PlayerOn((Player)character);
+               character.move('w');
+               System.out.println("Player loc: " + row + ", " + col);
+              }
+              else {
+               map[row][col].removeMonster();
+               map[row][col-1].MonsterOn((Monster)character);
+               character.move('w');
+               System.out.println("Monster loc: " + row + ", " + col);
+              }
             }
       }
-    public void moveDown() 
+      
+    public void moveDown(Character character) 
       {
-          System.out.println("Move down");
-          int row = playerStore.getX();
-          int col = playerStore.getY();
-          if(col + 1 < map.length && !(map[row][col+1].checkMonster()) && !(map[row][col+1].isWall()))
+        System.out.println("Move down");
+          int row = character.getX();
+          int col = character.getY();
+          if(col + 1 < map.length && !(map[row][col+1].checkMonster() || map[row][col+1].checkPlayer()) && !(map[row][col+1].isWall()))
             {
-                map[row][col].removePlayer();
-                map[row][col+1].PlayerOn(playerStore);
-                playerStore.setPos(row, col+1);
-                System.out.println("Player loc: " + row + ", " + col);
+              if (character instanceof Player){
+               map[row][col].removePlayer();
+               map[row][col+1].PlayerOn((Player)character);
+               character.move('s');
+               System.out.println("Player loc: " + row + ", " + col);
+              }
+              else {
+               map[row][col].removeMonster();
+               map[row][col+1].MonsterOn((Monster)character);
+               character.move('s');
+               System.out.println("Monster loc: " + row + ", " + col);
+              }
             }
       }
       
-      
+    public void moveMain(char dir, Character character){
+      if (dir == 'w'){
+        moveUp(character);
+      }
+      else if (dir == 'd'){
+        moveRight(character);
+      }
+      else if (dir == 's'){
+        moveDown(character);
+      }
+      else if (dir == 'a'){
+        moveLeft(character);
+      }
+    }
+    
+    public void monsterMove(){
+    for (Monster m : enemies){
+      char dir = dirs[floor(random(4))];
+      moveMain(dir, m);
+    }
+    }
       
     
     public void display(){
@@ -147,26 +204,19 @@ public class PixelGungeon{
         }
       }
     }
+    
+  void playerMove(char dir) {
+    moveMain(dir, playerStore);
+  }
 }
 
 PixelGungeon a;
+int oldTime = millis();
 
-  void keyPressed() {
-    System.out.println("Key: " + key);
-    if (key == 'w'){
-      a.moveUp();
-    }
-    else if (key == 'd'){
-      a.moveRight();
-    }
-    else if (key == 's'){
-      a.moveDown();
-    }
-    else if (key == 'a'){
-      a.moveLeft();
-    }
-  }
-    
+   void keyPressed(){
+     a.playerMove(key);
+   }
+   
   void setup(){
     size(500,500);
     a = new PixelGungeon();
@@ -177,5 +227,9 @@ PixelGungeon a;
     fill(0);
     text(frameRate, 20, 20);
     a.display();
+    if (millis()-oldTime >= 1000){
+      a.monsterMove();
+      oldTime = millis();
+    }
     //System.out.println(a);
   }
