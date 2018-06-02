@@ -3,13 +3,15 @@ public class PixelGungeon{
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
     private String[] file;
-    private PImage playerModel;
+    private PImage playerModel, monsterModel;
     
     public PixelGungeon(String data){
       file = loadStrings(data);
       /*for (int n=0; n<file.length; n++){
         System.out.println(file[n]);
       }*/
+      playerModel = loadImage("PlayerModel.png");
+      monsterModel = loadImage("MonsterModel.png");
       map = new Tile[file[0].length()][file.length];
       mapGen();
     }
@@ -23,7 +25,6 @@ public class PixelGungeon{
           else if(file[c].charAt(r) == 'S'){
             map[r][c] = new Tile(r,c,false);
             Player b = new Player(20,10,"Jeff",r,c);
-            playerModel = loadImage("PlayerModel.png");
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
@@ -306,9 +307,7 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkMonster())
           {
-            ellipseMode(CORNER);
-            fill(255,0,0);
-            ellipse(r*50, c*50, 50, 50);
+            image(monsterModel, r*50+1, c*50+1, 49, 49);
           }
           //Makes floor gridded
           /*else
