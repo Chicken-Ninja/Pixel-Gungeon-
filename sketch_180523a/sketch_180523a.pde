@@ -160,7 +160,7 @@ public class PixelGungeon{
                map[row][col].removePlayer();
                map[row][col-1].PlayerOn((Player)character);
                character.move('w');
-               System.out.println("Player loc: " + row + ", " + col);
+               System.out.println("Player loc: " + row + ", " + col );
                }
               }
               else {
@@ -168,7 +168,7 @@ public class PixelGungeon{
                  map[row][col].removeMonster();
                  map[row][col-1].MonsterOn((Monster)character);
                  character.move('w');
-                 System.out.println("Monster loc: " + row + ", " + col);
+                 System.out.println("Monster loc: " + row + ", " + col );
                 }
               }
             }
@@ -210,6 +210,11 @@ public class PixelGungeon{
             }
       }
       
+        
+      
+      
+      
+      
     public void moveMain(char dir, Character character){
       if (dir == 'w'){
         moveUp(character);
@@ -227,10 +232,59 @@ public class PixelGungeon{
     
     public void monsterMove(){
     for (Monster m : enemies){
-      char dir = dirs[floor(random(4))];
-      moveMain(dir, m);
+      int x = m.getX();
+      int y = m.getY();
+      int a = playerStore.getX();
+      int b = playerStore.getY();
+      
+      int upDist = y - b;
+      int sideDist = x- a;
+
+      
+      System.out.println(upDist);
+      System.out.println(sideDist);
+
+      
+      if(abs(upDist) >= abs(sideDist)) 
+        {
+            
+             if(upDist > 0) 
+              {
+                 moveUp(m);
+              }
+             else{
+                 moveDown(m);
+             }
+        }
+        
+        else {
+            
+               if(sideDist > 0)
+              {
+                moveLeft(m);
+              }
+              else {
+                moveRight(m);
+              }
+        }
     }
+             
+              
+             
+      
+     
+    
+          
+        
+    
+      
+      
+      
+      
+      //char dir = dirs[floor(random(4))];
+      //moveMain(dir, m);
     }
+
       
     void playerMove(char dir) {
       moveMain(dir, playerStore);
@@ -266,7 +320,8 @@ public class PixelGungeon{
         }
       }
     }
-}
+    }
+    
 
 PixelGungeon a;
 boolean nextTurn;
