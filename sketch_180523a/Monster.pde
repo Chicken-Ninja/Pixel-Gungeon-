@@ -1,12 +1,25 @@
 public class Monster extends Character{
+  int tier; 
   
-  public Monster(int _x, int _y){
+  
+  
+  public Monster(int _x, int _y, int level){
     health = 40;
     mana = 10;
     name = "Red Boy";
+    tier = level;
     x = _x;
     y = _y;
   }
+  
+  public int Attack() 
+    {
+      int a = (int)random (0 , 5) + tier;
+      return a;
+    }
+  
+  
+  
     
   public Monster(int h, int m, String n, int _x, int _y){
     health = h;
