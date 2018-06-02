@@ -282,19 +282,6 @@ public class PixelGungeon{
               }
         }
     }
-             
-              
-             
-      
-     
-    
-          
-        
-    
-      
-      
-      
-      
       //char dir = dirs[floor(random(4))];
       //moveMain(dir, m);
     }
@@ -315,7 +302,7 @@ public class PixelGungeon{
           else if(map[r][c].checkPlayer())
           {
             //System.out.println("player draw: " + r + ", " + c);
-            image(playerModel, r*50, c*50, 50, 50);
+            image(playerModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].checkMonster())
           {
