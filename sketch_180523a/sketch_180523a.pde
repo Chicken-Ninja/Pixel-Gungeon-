@@ -4,12 +4,14 @@ public class PixelGungeon{
     private ArrayList<Monster> enemies = new ArrayList();
     private String[] file;
     private PImage playerModel, monsterModel;
+    private boolean gameOver;
     
     public PixelGungeon(String data){
       file = loadStrings(data);
       /*for (int n=0; n<file.length; n++){
         System.out.println(file[n]);
       }*/
+      gameOver = false;
       playerModel = loadImage("PlayerModel.png");
       monsterModel = loadImage("MonsterModel.png");
       map = new Tile[file[0].length()][file.length];
@@ -48,6 +50,7 @@ public class PixelGungeon{
   public int getCols(){
     return map[0].length;
   }
+  
   
 
 
@@ -253,6 +256,48 @@ public class PixelGungeon{
       int a = playerStore.getX();
       int b = playerStore.getY();
       
+      if(checkAround(m) >= 0)
+        {
+          if(checkAround(m) == 0 )
+          {
+            map[x + 1][y].getPlayer().setHealth(map[x + 1][y].getPlayer().getHealth() - m.Attack());
+            if(map[x + 1][y].getPlayer().getHealth() <= 0 )
+              {
+                map[x+1][y].removePlayer();
+                System.out.println("OOF");
+              }
+          }
+          else if(checkAround(m) == 1)
+          {
+            map[x - 1][y].getPlayer().setHealth(map[x - 1][y].getPlayer().getHealth() - m.Attack());
+            if(map[x - 1][y].getPlayer().getHealth() <= 0 )
+              {
+                map[x-1][y].removePlayer();
+                System.out.println("OOF");
+              }
+          }
+          else if(checkAround(m) == 2)
+          {
+            map[x][y + 1].getPlayer().setHealth(map[x][y + 1].getPlayer().getHealth() - m.Attack());
+            if(map[x][y + 1].getPlayer().getHealth() <= 0 )
+              {
+                map[x][y + 1].removePlayer();
+                System.out.println("OOF");
+              }
+          }
+          else if(checkAround(m) == 3)
+            {
+            map[x][y - 1].getPlayer().setHealth(map[x][y - 1].getPlayer().getHealth() - m.Attack());
+            if(map[x][y - 1].getPlayer().getHealth() <= 0 )
+              {
+                map[x][y - 1].removePlayer();
+                System.out.println("OOF");
+              }
+          }
+        }
+        else{
+      
+      
       int upDist = y - b;
       int sideDist = x- a;
 
@@ -287,12 +332,40 @@ public class PixelGungeon{
       //char dir = dirs[floor(random(4))];
       //moveMain(dir, m);
     }
+    }
 
 
 
   
-
-
+  public int checkAround(Monster m)
+    {
+        int x = m.getX();
+        int y = m.getY();
+        
+        if(x + 1 < map.length && map[x + 1][y].checkPlayer())
+          {return 0;} //MOVE RIGHT}
+        else if(x - 1 >= 0 && map[x - 1][y].checkPlayer())
+          {  
+          return 1; //MOVE LEFT 
+          }
+          else if(y + 1 < map[0].length && map[x][y +1].checkPlayer())
+          {
+          return 2; //MOVE DOWN
+          }
+          else if(y - 1 >= 0 && map[x][y- 1].checkPlayer())
+          {
+            return 3;
+          }
+        else {
+            return -1;
+          }
+    }
+        
+              
+  
+  
+  
+  
       
     void playerMove(char dir) {
       moveMain(dir, playerStore);
