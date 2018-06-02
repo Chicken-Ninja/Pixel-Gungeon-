@@ -3,6 +3,7 @@ public class PixelGungeon{
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
     private String[] file;
+    private PImage playerModel;
     
     public PixelGungeon(String data){
       file = loadStrings(data);
@@ -22,6 +23,7 @@ public class PixelGungeon{
           else if(file[c].charAt(r) == 'S'){
             map[r][c] = new Tile(r,c,false);
             Player b = new Player(20,10,"Jeff",r,c);
+            playerModel = loadImage("PlayerModel.png");
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
@@ -313,9 +315,7 @@ public class PixelGungeon{
           else if(map[r][c].checkPlayer())
           {
             //System.out.println("player draw: " + r + ", " + c);
-            ellipseMode(CORNER);
-            fill(50,140,200);
-            ellipse(r*50, c*50, 50, 50);
+            image(playerModel, r*50, c*50, 50, 50);
           }
           else if(map[r][c].checkMonster())
           {
