@@ -191,7 +191,7 @@ public class PixelGungeon{
         System.out.println("Move down");
           int row = character.getX();
           int col = character.getY();
-          if(col+1<map.length){
+          if(col+1<map[0].length){
               if (character instanceof Player){
               if(map[row][col+1].checkMonster()) 
                {
