@@ -2,39 +2,51 @@ public class PixelGungeon{
     private Tile[][] map;
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
-    private char[] dirs = {'w','d','s','a'};
+    private String[] file;
     
-    public PixelGungeon(){
-  map = new Tile[10][10];
-  mapGen();
+    public PixelGungeon(String data){
+      file = loadStrings(data);
+      /*for (int n=0; n<file.length; n++){
+        System.out.println(file[n]);
+      }*/
+      map = new Tile[file[0].length()][file.length];
+      mapGen();
     }
 
     public void mapGen(){
-  for (int r = 0; r<map.length; r++){
-      for (int c = 0; c<map[0].length; c++){
-    map[r][c] = new Tile(r , c , false);
+      for (int c=0; c<file.length; c++){
+        for (int r=0; r<file[0].length(); r++){
+          if (file[c].charAt(r) == '#'){
+            map[r][c] = new Tile(r,c,true);
+          }
+          else if(file[c].charAt(r) == 'S'){
+            map[r][c] = new Tile(r,c,false);
+            Player b = new Player(20,10,"Jeff",r,c);
+            map[r][c].PlayerOn(b);
+            playerStore = b;
+          }
+          else if (file[c].charAt(r) == 'M'){
+            map[r][c] = new Tile(r,c,false);
+            Monster m = new Monster(r,c);
+            enemies.add(m);
+            map[r][c].MonsterOn(m);
+          }
+          else{
+            map[r][c] = new Tile(r,c,false);
+          }
+        }
       }
-  }
-  for (int n=0; n<map[0].length; n++){
-      map[0][n] = new Tile(0 , n , true);
-      map[map.length-1][n] = new Tile( map.length - 1 , n , true);
-  }
-  for (int n=0; n<map.length; n++){
-      map[n][0] = new Tile(n , 0 , true) ;
-      map[n][map[0].length-1] = new Tile( n  , map[0].length - 1 , true);
-  }
-  map[0][1] = new Tile(0,1, false);
-  map[8][9] = new Tile(8,9, false);
-  Player b = new Player(10,10,"Jeff",0,1);
-  map[0][1].PlayerOn(b);
-  playerStore = b;
-  Monster m = new Monster(4,3);
-  enemies.add(m);
-  map[4][3].MonsterOn(m);
-  Monster m2 = new Monster(8,8);
-  enemies.add(m2);
-  map[8][8].MonsterOn(m2);
     }
+
+  public int getRows(){
+    return map.length;
+  }
+  
+  public int getCols(){
+    return map[0].length;
+  }
+  
+
 
 
   public String toString(){
@@ -335,7 +347,8 @@ boolean nextTurn;
    
   void setup(){
     size(500,500);
-    a = new PixelGungeon();
+    a = new PixelGungeon("data.txt");
+    surface.setSize(a.getRows() * 50, a.getCols() * 50);
   }
   
   void draw(){
