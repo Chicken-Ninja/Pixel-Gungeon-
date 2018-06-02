@@ -30,7 +30,7 @@ public class PixelGungeon{
           }
           else if (file[c].charAt(r) == 'M'){
             map[r][c] = new Tile(r,c,false);
-            Monster m = new Monster(r,c);
+            Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
           }
@@ -225,6 +225,7 @@ public class PixelGungeon{
             }
       }
       
+      
         
       
       
@@ -287,6 +288,11 @@ public class PixelGungeon{
       //moveMain(dir, m);
     }
 
+
+
+  
+
+
       
     void playerMove(char dir) {
       moveMain(dir, playerStore);
@@ -318,7 +324,7 @@ public class PixelGungeon{
         }
       }
     }
-    }
+}
     
 
 PixelGungeon a;
