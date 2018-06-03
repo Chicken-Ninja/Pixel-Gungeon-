@@ -86,10 +86,11 @@ public class PixelGungeon{
         
     public void moveRight(Character character) 
       {
+        
         System.out.println("Move right");
           int row = character.getX();
           int col = character.getY();
-          if(row + 1 < map.length){
+          if(row + 1 < map.length && !gameOver){
               if (character instanceof Player){
               if(map[row + 1][col].checkMonster()) 
                {
@@ -125,7 +126,7 @@ public class PixelGungeon{
         System.out.println("Move left");
           int row = character.getX();
           int col = character.getY();
-          if(row - 1 >=0){
+          if(row - 1 >=0 && !gameOver){
               if (character instanceof Player){
               if(map[row - 1][col].checkMonster()) 
                {
@@ -161,7 +162,7 @@ public class PixelGungeon{
         System.out.println("Move up");
           int row = character.getX();
           int col = character.getY();
-          if(col-1>=0){
+          if(col-1>=0 && !gameOver){
               if (character instanceof Player){
               if(map[row][col-1].checkMonster()) 
                {
@@ -197,7 +198,7 @@ public class PixelGungeon{
         System.out.println("Move down");
           int row = character.getX();
           int col = character.getY();
-          if(col+1<map[0].length){
+          if(col+1<map[0].length && !gameOver){
               if (character instanceof Player){
               if(map[row][col+1].checkMonster()) 
                {
@@ -265,6 +266,8 @@ public class PixelGungeon{
               {
                 map[x+1][y].removePlayer();
                 System.out.println("OOF");
+                gameOver = true;
+                
               }
           }
           else if(checkAround(m) == 1)
@@ -274,6 +277,7 @@ public class PixelGungeon{
               {
                 map[x-1][y].removePlayer();
                 System.out.println("OOF");
+                gameOver = true;
               }
           }
           else if(checkAround(m) == 2)
@@ -283,6 +287,7 @@ public class PixelGungeon{
               {
                 map[x][y + 1].removePlayer();
                 System.out.println("OOF");
+                gameOver = true;
               }
           }
           else if(checkAround(m) == 3)
@@ -292,6 +297,7 @@ public class PixelGungeon{
               {
                 map[x][y - 1].removePlayer();
                 System.out.println("OOF");
+                gameOver = true;
               }
           }
         }
