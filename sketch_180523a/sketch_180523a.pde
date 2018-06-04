@@ -1,6 +1,9 @@
 public class PixelGungeon{
     private Tile[][] map;
-    private String[] files;
+    private String[] files = {"data1.txt","data2.txt","data3.txt","data4.txt","data5.txt",
+                              "data6.txt","data7.txt","data8.txt","data9.txt","data10.txt",
+                              "data11.txt","data12.txt","data13.txt","data14.txt","data15.txt",
+                              "data16.txt","data17.txt","data18.txt","data19.txt","data20.txt",};
     private String[][] maps;
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
@@ -16,6 +19,9 @@ public class PixelGungeon{
       while(counter < maps.length)      
       {
         maps[counter] = loadStrings(files[(int)random(0 , files.length)]);
+        for (int n=0; n<maps[counter].length; n++){
+          System.out.println(maps[counter][n]);
+        }
       }
       roomNumber = 0; 
       gameOver = false;
