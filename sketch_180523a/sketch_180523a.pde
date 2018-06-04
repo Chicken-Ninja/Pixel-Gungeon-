@@ -7,7 +7,6 @@ public class PixelGungeon{
     private String[][] maps;
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
-    private String[] file;
     private PImage playerModel, monsterModel;
     private PImage hurtPlayer, hurtMonster;
     private boolean gameOver;
@@ -29,19 +28,20 @@ public class PixelGungeon{
       hurtPlayer = loadImage("HurtPlayer.png");
       monsterModel = loadImage("MonsterModel.png");
       hurtMonster = loadImage("HurtMonster.png");
-      map = new Tile[maps[roomNumber][0].length()] [maps[roomNumber].length];
-      mapGen();
+      map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
+      mapGen(maps[roomNumber]);
     }
+    
   public void nextRoom() 
     {
        roomNumber ++;
        map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
-       mapGen();
+       mapGen(maps[roomNumber]);
     }
 
 
 
-    public void mapGen(){
+    public void mapGen(String[] file){
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
           if (file[c].charAt(r) == '#'){
