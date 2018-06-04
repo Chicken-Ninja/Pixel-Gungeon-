@@ -1,26 +1,40 @@
 public class Tile 
 {
-    Boolean hasPlayer,hasMonster,isWall;
+    Boolean hasPlayer,hasMonster,isWall,isExit,isStart;
     int row;
     int col; 
     Monster monsterStore = null; 
     Player playerStore = null;
     
     
+    
 
-    public Tile(int x , int y , Boolean Wall) 
+    public Tile(int x , int y , Boolean Wall, Boolean start, Boolean Exit) 
     {
   row = x; 
   col = y; 
   isWall = Wall;
   hasPlayer = false;
   hasMonster = false;
+  isStart = start;
+  isExit = Exit; 
     }
     
     public Boolean isWall() 
     {
   return isWall;
     }
+      
+    public Boolean isExit() 
+  {
+    return isExit() ;
+  }
+    public Boolean isStart() 
+  {
+    return isStart();
+  }
+        
+    
     
     
     public Boolean isTile() 

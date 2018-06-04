@@ -22,22 +22,22 @@ public class PixelGungeon{
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
           if (file[c].charAt(r) == '#'){
-            map[r][c] = new Tile(r,c,true);
+            map[r][c] = new Tile(r,c,true,false , false);
           }
           else if(file[c].charAt(r) == 'S'){
-            map[r][c] = new Tile(r,c,false);
+            map[r][c] = new Tile(r,c,false, true, false);
             Player b = new Player(20,10,"Jeff",r,c);
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
           else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false);
+            map[r][c] = new Tile(r,c,false,false, true);
             Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
           }
           else{
-            map[r][c] = new Tile(r,c,false);
+            map[r][c] = new Tile(r,c,false, false , false);
           }
         }
       }
