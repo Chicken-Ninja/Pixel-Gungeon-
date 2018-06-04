@@ -17,10 +17,8 @@ public class PixelGungeon{
       int counter = 0;
       while(counter < maps.length)      
       {
-        maps[counter] = loadStrings(files[(int)random(0 , files.length)]);
-        for (int n=0; n<maps[counter].length; n++){
-          System.out.println(maps[counter][n]);
-        }
+        maps[counter] = loadStrings(files[floor(random(files.length))]);
+        counter++;
       }
       roomNumber = 0; 
       gameOver = false;
@@ -49,7 +47,7 @@ public class PixelGungeon{
           }
           else if(file[c].charAt(r) == 'S'){
             map[r][c] = new Tile(r,c,false, true, false);
-            Player b = new Player(20,10,"Jeff",r,c);
+            Player b = new Player(r,c);
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
