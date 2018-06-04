@@ -1,22 +1,39 @@
 public class PixelGungeon{
     private Tile[][] map;
+    private String[] files;
+    private String[][] maps;
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
     private String[] file;
     private PImage playerModel, monsterModel;
     private PImage hurtPlayer, hurtMonster;
     private boolean gameOver;
+    private int roomNumber;
     
-    public PixelGungeon(String data){
-      file = loadStrings(data);
+    public PixelGungeon(){
+      String [][] maps = new String[5][];
+      int counter = 0;
+      while(counter < maps.length)      
+      {
+        maps[counter] = loadStrings(files[(int)random(0 , files.length)]);
+      }
+      roomNumber = 0; 
       gameOver = false;
       playerModel = loadImage("PlayerModel.png");
       hurtPlayer = loadImage("HurtPlayer.png");
       monsterModel = loadImage("MonsterModel.png");
       hurtMonster = loadImage("HurtMonster.png");
-      map = new Tile[file[0].length()][file.length];
+      map = new Tile[maps[roomNumber][0].length()] [maps[roomNumber].length];
       mapGen();
     }
+  public void nextRoom() 
+    {
+       roomNumber ++;
+       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
+       mapGen();
+    }
+
+
 
     public void mapGen(){
       for (int c=0; c<file.length; c++){
@@ -382,7 +399,7 @@ boolean nextTurn;
    
   void setup(){
     size(500,500);
-    a = new PixelGungeon("data.txt");
+    a = new PixelGungeon();
     surface.setSize(a.getRows() * 50, a.getCols() * 50);
   }
   
