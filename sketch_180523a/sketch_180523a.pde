@@ -7,7 +7,7 @@ public class PixelGungeon{
     private String[][] maps = new String[5][0];
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
-    private PImage playerModel, monsterModel, wallModel, stairModel;
+    private PImage playerModel, monsterModel, wallModel, stairModel, tileModel;
     private PImage hurtPlayer, hurtMonster;
     private PImage healthBar;
     private boolean gameOver;
@@ -29,6 +29,7 @@ public class PixelGungeon{
       hurtPlayer = loadImage("HurtPlayer.png");
       monsterModel = loadImage("MonsterModel.png");
       hurtMonster = loadImage("HurtMonster.png");
+      tileModel = loadImage("FloorTile.png");
       wallModel = loadImage("Wall.png");
       stairModel = loadImage("staircase.png");
       healthBar = loadImage("HealthBar.png");
@@ -411,10 +412,12 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkPlayer())
           {
+            image(tileModel, r*50, c*50, 50, 50);
             image(playerModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].checkMonster())
           {
+            image(tileModel, r*50, c*50, 50, 50);
             fill(255);
             rect(r*50, c*50-15,50,10);
             fill(255,0,0);
@@ -423,6 +426,9 @@ public class PixelGungeon{
           }
           else if(map[r][c].isExit() || map[r][c].isStart()){
             image(stairModel, r*50, c*50, 50, 50);
+          }
+          else{
+            image(tileModel, r*50, c*50, 50, 50);
           }
         }
       }
