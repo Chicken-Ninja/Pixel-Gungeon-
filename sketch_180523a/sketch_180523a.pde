@@ -9,7 +9,7 @@ public class PixelGungeon{
     private ArrayList<Monster> enemies = new ArrayList();
     private PImage playerModel, monsterModel, wallModel, stairModel, tileModel;
     private PImage hurtPlayer, hurtMonster;
-    private PImage healthBar;
+    private PImage healthBar, swordModel;
     private boolean gameOver;
     private int roomNumber = 0;
     private boolean initialRoom = true; 
@@ -21,7 +21,7 @@ public class PixelGungeon{
       while(counter < maps.length)      
       {
         int num = floor(random(files.length));
-        System.out.println("File: " + files[num]);
+        //System.out.println("File: " + files[num]);
         maps[counter] = loadStrings(files[num]);
         counter++;
       }
@@ -34,6 +34,7 @@ public class PixelGungeon{
       wallModel = loadImage("Wall.png");
       stairModel = loadImage("staircase.png");
       healthBar = loadImage("HealthBar.png");
+      swordModel = loadImage("sword.png");
       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
       mapGen(maps[roomNumber]);
     }
@@ -428,17 +429,22 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkPlayer())
           {
-            image(tileModel, r*50, c*50, 50, 50);
+            if (map[r][c].isStart() || map[r][c].isExit()){
+              image(stairModel, r*50, c*50, 50, 50);
+            }
+            else{
+              image(tileModel, r*50, c*50, 50, 50);
+            }
             image(playerModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].checkMonster())
           {
             image(tileModel, r*50, c*50, 50, 50);
+            image(monsterModel, r*50+1, c*50+1, 49, 49);
             fill(255);
             rect(r*50, c*50-15,50,10);
             fill(255,0,0);
             rect(r*50,c*50-15,map[r][c].getMonster().getHealth()/40.0*50,10);
-            image(monsterModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].isExit() || map[r][c].isStart()){
             image(stairModel, r*50, c*50, 50, 50);
@@ -453,6 +459,7 @@ public class PixelGungeon{
       fill(255,0,0);
       rect(0.20294*healthBar.width/4,0.21056*healthBar.height/4,playerStore.getHealth()/50.0*0.72769*healthBar.width/4,0.57545*healthBar.height/4);
       image(healthBar,0,0,healthBar.width/4, healthBar.height/4);
+      //image(swordModel, playerStore.getX()*50, playerStore.getY()*50+35, swordModel.width/2, swordModel.height/2);
     }
 }
     
