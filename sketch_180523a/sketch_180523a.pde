@@ -4,23 +4,25 @@ public class PixelGungeon{
                               "data6.txt","data7.txt","data8.txt","data9.txt","data10.txt",
                               "data11.txt","data12.txt","data13.txt","data14.txt","data15.txt",
                               "data16.txt","data17.txt","data18.txt","data19.txt","data20.txt",};
-    private String[][] maps;
+    private String[][] maps = new String[5][0];
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
     private PImage playerModel, monsterModel;
     private PImage hurtPlayer, hurtMonster;
     private boolean gameOver;
-    private int roomNumber;
+    private int roomNumber = 0;
+    private int exitX, exitY;
     
     public PixelGungeon(){
-      String [][] maps = new String[5][];
+      //String [][] maps = new String[5][];
       int counter = 0;
       while(counter < maps.length)      
       {
-        maps[counter] = loadStrings(files[floor(random(files.length))]);
+        int num = floor(random(files.length));
+        System.out.println("File: " + files[num]);
+        maps[counter] = loadStrings(files[num]);
         counter++;
       }
-      roomNumber = 0; 
       gameOver = false;
       playerModel = loadImage("PlayerModel.png");
       hurtPlayer = loadImage("HurtPlayer.png");
@@ -29,21 +31,39 @@ public class PixelGungeon{
       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
       mapGen(maps[roomNumber]);
     }
+
+
     
   public void nextRoom() 
     {
-       roomNumber ++;
-       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
-       mapGen(maps[roomNumber]);
+       roomNumber++;
+       if (roomNumber<maps.length){
+         map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
+         enemies = new ArrayList();
+         mapGen(maps[roomNumber]);
+         surface.setSize(getRows() * 50, getCols() * 50);
+       }
+       else {
+         gameOver = true;
+       }
     }
 
-
+  public boolean getGameOver(){
+    return gameOver;
+  }
 
     public void mapGen(String[] file){
+      System.out.println("mapGen()");
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
           if (file[c].charAt(r) == '#'){
             map[r][c] = new Tile(r,c,true,false , false);
+          }
+          else if (file[c].charAt(r) == 'M'){
+            map[r][c] = new Tile(r,c,false,false, false);
+            Monster m = new Monster(r,c , 1);
+            enemies.add(m);
+            map[r][c].MonsterOn(m);
           }
           else if(file[c].charAt(r) == 'S'){
             map[r][c] = new Tile(r,c,false, true, false);
@@ -51,11 +71,10 @@ public class PixelGungeon{
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
-          else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, true);
-            Monster m = new Monster(r,c , 1);
-            enemies.add(m);
-            map[r][c].MonsterOn(m);
+          else if(file[c].charAt(r) == 'E'){
+            map[r][c] = new Tile(r,c,false,false,true);
+            exitX = r;
+            exitY = c;
           }
           else{
             map[r][c] = new Tile(r,c,false, false , false);
@@ -72,10 +91,6 @@ public class PixelGungeon{
     return map[0].length;
   }
   
-  
-
-
-
   public String toString(){
   String dump = "";
   if (map.length==0){
@@ -313,10 +328,8 @@ public class PixelGungeon{
       int b = playerStore.getY();
       int upDist = y - b;
       int sideDist = x- a;
-      
       System.out.println(upDist);
       System.out.println(sideDist);
-
       if(abs(upDist) > abs(sideDist)){
         if(upDist > 0) 
           {
@@ -359,10 +372,15 @@ public class PixelGungeon{
     }
         
     void playerMove(char dir) {
+      //System.out.println("playerMove()");
       moveMain(dir, playerStore);
+      if (playerStore.getX() == exitX && playerStore.getY() == exitY){
+        nextRoom();
+      }
     }
     
     public void display(){
+      //System.out.println("display()");
       for (int r=0; r<map.length; r++){
         for (int c=0; c<map[0].length; c++){
           if(map[r][c].isWall())
@@ -379,12 +397,10 @@ public class PixelGungeon{
           {
             image(monsterModel, r*50+1, c*50+1, 49, 49);
           }
-          //Makes floor gridded
-          /*else
-          {
-            fill(255,255,255);
+          else if(map[r][c].isExit()){
+            fill(100);
             rect(r*50, c*50, 50, 50);
-          }*/
+          }
         }
       }
     }
@@ -409,12 +425,15 @@ boolean nextTurn;
   
   void draw(){
     background(255);
-    fill(0);
-    text(frameRate, 20, 20);
     a.display();
     if (nextTurn){
       a.monsterMove();
       nextTurn = false;
     }
-    //System.out.println(a);
+    if (a.getGameOver()){
+      PFont f = createFont("Arial",16,true);
+      textFont(f,72);
+      fill(0,0,255);
+      text("YOU WON!",a.getRows()/2 * 50 - 150,a.getCols()/2 * 50);
+    }
   }

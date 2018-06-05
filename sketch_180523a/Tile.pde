@@ -27,11 +27,11 @@ public class Tile
       
     public Boolean isExit() 
   {
-    return isExit() ;
+    return isExit;
   }
     public Boolean isStart() 
   {
-    return isStart();
+    return isStart;
   }
         
     
