@@ -20,7 +20,7 @@ public class PixelGungeon{
       while(counter < maps.length)      
       {
         int num = floor(random(files.length));
-        System.out.println("File: " + files[num]);
+        //System.out.println("File: " + files[num]);
         maps[counter] = loadStrings(files[num]);
         counter++;
       }
@@ -412,7 +412,12 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkPlayer())
           {
-            image(tileModel, r*50, c*50, 50, 50);
+            if (map[r][c].isStart() || map[r][c].isExit()){
+              image(stairModel, r*50, c*50, 50, 50);
+            }
+            else{
+              image(tileModel, r*50, c*50, 50, 50);
+            }
             image(playerModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].checkMonster())
