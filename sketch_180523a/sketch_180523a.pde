@@ -62,6 +62,13 @@ public class PixelGungeon{
        }
     }
 
+  public int getHealth() 
+  {
+    return playerStore.getHealth();
+  }
+      
+
+
   public boolean getGameOver(){
     return gameOver;
   }
@@ -472,6 +479,13 @@ boolean nextTurn;
     if (nextTurn){
       a.monsterMove();
       nextTurn = false;
+    }
+    if(a.getGameOver() && playerStore.getHealth() <= 0 )
+    {
+      PFont f = createFont("Arial" , 16 , true);
+      textFont(f, 72);
+      fill(255, 0 , 0);
+      text("YOU LOSE!" ,a.getRows()/ 2 * 50 - 150 , a.getCols() / 2 * 50);
     }
     if (a.getGameOver()){
       PFont f = createFont("Arial",16,true);
