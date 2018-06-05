@@ -20,6 +20,8 @@ public class PixelGungeon{
         maps[counter] = loadStrings(files[floor(random(files.length))]);
         counter++;
       }
+      String dump = "";
+      
       roomNumber = 0; 
       gameOver = false;
       playerModel = loadImage("PlayerModel.png");
@@ -32,9 +34,17 @@ public class PixelGungeon{
     
   public void nextRoom() 
     {
+      String dump = "";
+        for(int stepper = 0; stepper < maps.length; stepper++ )   
+      {
+          dump += maps[stepper];
+          dump += ",";
+      }
+      System.out.println (dump);
        roomNumber ++;
        map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
-       mapGen(maps[roomNumber]);
+       mapGen(maps[roomNumber]);     
+       display();
     }
 
 
@@ -51,8 +61,11 @@ public class PixelGungeon{
             map[r][c].PlayerOn(b);
             playerStore = b;
           }
+          else if(file[c].charAt(r) == 'E'){
+            map[r][c] = new Tile(r , c, false  , false , true);
+          }
           else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, true);
+            map[r][c] = new Tile(r,c,false,false, false);
             Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
@@ -123,6 +136,11 @@ public class PixelGungeon{
                          map[row + 1][col].removeMonster();
                      }
                }
+               else if(map[row +1][col].isExit())
+               {
+                 nextRoom();
+               }
+               
               else if(!(map[row+1][col].isWall()))
                {
                map[row][col].removePlayer();
@@ -250,7 +268,7 @@ public class PixelGungeon{
           int row = character.getX();
           int col = character.getY();
           if(col+1<map[0].length && !gameOver){
-              if (character instanceof Player){
+              if (character instanceof Player){ 
               if(map[row][col+1].checkMonster()) 
                {
                    map[row][col+1].getMonster().setHealth(map[row][col+1].getMonster().getHealth() - ((Player)character).Attack());
@@ -260,6 +278,12 @@ public class PixelGungeon{
                          enemies.remove(map[row][col+1].getMonster());
                          map[row][col+1].removeMonster();
                      }
+               }
+               else if(map[row][col +1].isExit())
+               {
+                 System.out.println("HELLO");
+                 nextRoom();
+                 System.out.println("HELLO");
                }
               else if(!(map[row][col+1].isWall()))
                {
