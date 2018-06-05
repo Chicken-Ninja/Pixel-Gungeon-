@@ -9,6 +9,7 @@ public class PixelGungeon{
     private ArrayList<Monster> enemies = new ArrayList();
     private PImage playerModel, monsterModel, wallModel, stairModel;
     private PImage hurtPlayer, hurtMonster;
+    private PImage healthBar;
     private boolean gameOver;
     private int roomNumber = 0;
     private int exitX, exitY;
@@ -30,6 +31,7 @@ public class PixelGungeon{
       hurtMonster = loadImage("HurtMonster.png");
       wallModel = loadImage("Wall.png");
       stairModel = loadImage("staircase.png");
+      healthBar = loadImage("HealthBar.png");
       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
       mapGen(maps[roomNumber]);
     }
@@ -420,6 +422,11 @@ public class PixelGungeon{
           }
         }
       }
+      fill(255);
+      rect(0.20294*healthBar.width/4,0.21056*healthBar.height/4,0.72769*healthBar.width/4,0.57545*healthBar.height/4);
+      fill(255,0,0);
+      rect(0.20294*healthBar.width/4,0.21056*healthBar.height/4,playerStore.getHealth()/50.0*0.72769*healthBar.width/4,0.57545*healthBar.height/4);
+      image(healthBar,0,0,healthBar.width/4, healthBar.height/4);
     }
 }
     
