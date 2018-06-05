@@ -415,6 +415,10 @@ public class PixelGungeon{
           }
           else if(map[r][c].checkMonster())
           {
+            fill(255);
+            rect(r*50, c*50-15,50,10);
+            fill(255,0,0);
+            rect(r*50,c*50-15,map[r][c].getMonster().getHealth()/40.0*50,10);
             image(monsterModel, r*50+1, c*50+1, 49, 49);
           }
           else if(map[r][c].isExit() || map[r][c].isStart()){
