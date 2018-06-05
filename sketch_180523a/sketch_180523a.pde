@@ -43,19 +43,13 @@ public class PixelGungeon{
     
   public void nextRoom() 
     {
-      String dump = "";
-        for(int stepper = 0; stepper < maps.length; stepper++ )   
-      {
-          dump += maps[stepper];
-          dump += ",";
-      }
-      System.out.println (dump);
+      
+       initialRoom = false;
        roomNumber++;
        if (roomNumber<maps.length){
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
          enemies = new ArrayList();
          mapGen(maps[roomNumber]);
-         initialRoom = false;
          surface.setSize(getRows() * 50, getCols() * 50);
        }
        else {
@@ -97,7 +91,9 @@ public class PixelGungeon{
             }
             else if(initialRoom == false)
             {
+             
               map[r][c].PlayerOn(playerStore);
+              
             }
           }
           else if(file[c].charAt(r) == 'E'){
