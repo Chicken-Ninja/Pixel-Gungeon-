@@ -23,12 +23,6 @@ public class PixelGungeon{
         maps[counter] = loadStrings(files[num]);
         counter++;
       }
-<<<<<<< HEAD
-      String dump = "";
-      
-      roomNumber = 0; 
-=======
->>>>>>> 3c6d4917f9f5ce0c94ed5b3394511f2d19a1b7f2
       gameOver = false;
       playerModel = loadImage("PlayerModel.png");
       hurtPlayer = loadImage("HurtPlayer.png");
@@ -42,7 +36,6 @@ public class PixelGungeon{
     
   public void nextRoom() 
     {
-<<<<<<< HEAD
       String dump = "";
         for(int stepper = 0; stepper < maps.length; stepper++ )   
       {
@@ -50,11 +43,6 @@ public class PixelGungeon{
           dump += ",";
       }
       System.out.println (dump);
-       roomNumber ++;
-       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
-       mapGen(maps[roomNumber]);     
-       display();
-=======
        roomNumber++;
        if (roomNumber<maps.length){
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
@@ -65,7 +53,6 @@ public class PixelGungeon{
        else {
          gameOver = true;
        }
->>>>>>> 3c6d4917f9f5ce0c94ed5b3394511f2d19a1b7f2
     }
 
   public boolean getGameOver(){
@@ -92,19 +79,9 @@ public class PixelGungeon{
             playerStore = b;
           }
           else if(file[c].charAt(r) == 'E'){
-<<<<<<< HEAD
-            map[r][c] = new Tile(r , c, false  , false , true);
-          }
-          else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, false);
-            Monster m = new Monster(r,c , 1);
-            enemies.add(m);
-            map[r][c].MonsterOn(m);
-=======
             map[r][c] = new Tile(r,c,false,false,true);
             exitX = r;
             exitY = c;
->>>>>>> 3c6d4917f9f5ce0c94ed5b3394511f2d19a1b7f2
           }
           else{
             map[r][c] = new Tile(r,c,false, false , false);
@@ -471,14 +448,10 @@ boolean nextTurn;
       a.monsterMove();
       nextTurn = false;
     }
-<<<<<<< HEAD
-    //System.out.println(a);
-=======
     if (a.getGameOver()){
       PFont f = createFont("Arial",16,true);
       textFont(f,72);
       fill(0,0,255);
       text("YOU WON!",a.getRows()/2 * 50 - 150,a.getCols()/2 * 50);
     }
->>>>>>> 3c6d4917f9f5ce0c94ed5b3394511f2d19a1b7f2
   }
