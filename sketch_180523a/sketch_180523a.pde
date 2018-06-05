@@ -12,6 +12,7 @@ public class PixelGungeon{
     private PImage healthBar;
     private boolean gameOver;
     private int roomNumber = 0;
+    private boolean initialRoom = true; 
     private int exitX, exitY;
     
     public PixelGungeon(){
@@ -53,6 +54,7 @@ public class PixelGungeon{
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
          enemies = new ArrayList();
          mapGen(maps[roomNumber]);
+         initialRoom = false;
          surface.setSize(getRows() * 50, getCols() * 50);
        }
        else {
@@ -79,9 +81,16 @@ public class PixelGungeon{
           }
           else if(file[c].charAt(r) == 'S'){
             map[r][c] = new Tile(r,c,false, true, false);
-            Player b = new Player(r,c);
-            map[r][c].PlayerOn(b);
-            playerStore = b;
+            if(initialRoom == true)
+            {
+              Player b = new Player(r,c);
+              map[r][c].PlayerOn(b);
+              playerStore = b;
+            }
+            else if(initialRoom == false)
+            {
+              map[r][c].PlayerOn(playerStore);
+            }
           }
           else if(file[c].charAt(r) == 'E'){
             map[r][c] = new Tile(r,c,false,false,true);
@@ -470,4 +479,5 @@ boolean nextTurn;
       fill(0,0,255);
       text("YOU WON!",a.getRows()/2 * 50 - 150,a.getCols()/2 * 50);
     }
+    
   }
