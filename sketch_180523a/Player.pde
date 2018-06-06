@@ -25,7 +25,7 @@ public class Player extends Character{
   public int Attack()
   {
      return 
-     (int)random(0 , 10) + weaponStore.getDamage();
+     (int)random(2 , 10) + weaponStore.getDamage();
   }
   
    public void move(char direction){

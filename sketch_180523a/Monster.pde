@@ -14,7 +14,7 @@ public class Monster extends Character{
   
   public int Attack() 
     {
-      int a = (int)random (0 , 5) + tier;
+      int a = (int)random (0 , 2) + tier;
       return a;
     }
   
