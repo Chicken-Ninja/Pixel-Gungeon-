@@ -130,6 +130,9 @@ public class PixelGungeon{
   if (map.length==0){
       return "[]";
   }
+  
+  
+  
   for (int c=0; c<map.length; c++){
      for (int r=0; r<map[0].length; r++){
         if(map[r][c].isWall)
