@@ -1,10 +1,11 @@
 public class Tile 
 {
-    Boolean hasPlayer,hasMonster,isWall,isExit,isStart;
+    Boolean hasPlayer,hasMonster,isWall,isExit,isStart,hasPotion;
     int row;
     int col; 
     Monster monsterStore = null; 
     Player playerStore = null;
+    Potion potionStore = null;
     
     
     
@@ -16,6 +17,7 @@ public class Tile
   isWall = Wall;
   hasPlayer = false;
   hasMonster = false;
+  potionStore = false;
   isStart = start;
   isExit = Exit; 
     }
@@ -34,6 +36,33 @@ public class Tile
     return isStart;
   }
         
+    public Boolean hasPotion() 
+    {
+      return hasPotion;
+    }
+    
+    public void potionOn(Potion a) 
+    {
+      potionStore = a;
+      hasPotion = true;
+    }
+    
+    public void removePotion() 
+    {
+      if(hasPotion())
+      {
+        Potion a = potionStore; 
+        potionStore = null;
+        hasPotion = false;
+       
+      }
+    }
+    
+    public Potion getPotion() 
+    {
+      return potionStore;
+    }
+    
     
     
     
