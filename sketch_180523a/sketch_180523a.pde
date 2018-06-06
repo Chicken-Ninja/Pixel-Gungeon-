@@ -156,215 +156,64 @@ public class PixelGungeon{
   }
   return dump;
   }
-        
-    public void moveRight(Character character) 
-      {
-        
-        System.out.println("Move right");
-          int row = character.getX();
-          int col = character.getY();
-          if(row + 1 < map.length && !gameOver){
-              if (character instanceof Player){
-              if(map[row + 1][col].checkMonster()) 
-               {
-                   map[row + 1][col].getMonster().setHealth(map[row + 1][col].getMonster().getHealth() - ((Player)character).Attack());
-                   image(hurtMonster, (row+1)*50+1, col*50+1, 49, 49);
-                   if(map[row + 1][col].getMonster().getHealth() <= 0)
-                     {
-                         enemies.remove(map[row+1][col].getMonster());
-                         map[row + 1][col].removeMonster();
-                     }
-               }
-               else if(map[row +1][col].isExit())
-               {
-                 nextRoom();
-               }
-               
-              else if(!(map[row+1][col].isWall()))
-               {
-               map[row][col].removePlayer();
-               map[row+1][col].PlayerOn((Player)character);
-               character.move('d');
-               System.out.println("Player loc: " + row + ", " + col);
-               }
-              }
-              else {
-                if (map[row+1][col].checkPlayer()){
-                  map[row + 1][col].getPlayer().setHealth(map[row + 1][col].getPlayer().getHealth() - ((Monster)character).Attack());
-                  image(hurtPlayer, (row+1)*50+1, col*50+1, 49, 49);
-                  if(map[row + 1][col].getPlayer().getHealth() <= 0 )
-                  {
-                    map[row+1][col].removePlayer();
-                    System.out.println("OOF");
-                    gameOver = true;
-                  }
-                }
-                else if (!map[row + 1][col].checkMonster() && !map[row+1][col].isWall()){
-                 map[row][col].removeMonster();
-                 map[row+1][col].MonsterOn((Monster)character);
-                 character.move('d');
-                 System.out.println("Monster loc: " + row + ", " + col);
-                }
-              }
-            }
-      }
-     
-     public void moveLeft(Character character) 
-      {
-        System.out.println("Move left");
-          int row = character.getX();
-          int col = character.getY();
-          if(row - 1 >=0 && !gameOver){
-              if (character instanceof Player){
-              if(map[row - 1][col].checkMonster()) 
-               {
-                   map[row - 1][col].getMonster().setHealth(map[row - 1][col].getMonster().getHealth() - ((Player)character).Attack());
-                   image(hurtMonster, (row-1)*50+1, col*50+1, 49, 49);
-                   if(map[row - 1][col].getMonster().getHealth() <= 0)
-                     {
-                         enemies.remove(map[row-1][col].getMonster());
-                         map[row - 1][col].removeMonster();
-                     }
-               }
-              else if(!(map[row-1][col].isWall()))
-               {
-               map[row][col].removePlayer();
-               map[row-1][col].PlayerOn((Player)character);
-               character.move('a');
-               System.out.println("Player loc: " + row + ", " + col);
-               }
-              }
-              else {
-                if (map[row-1][col].checkPlayer()){
-                  map[row - 1][col].getPlayer().setHealth(map[row - 1][col].getPlayer().getHealth() - ((Monster)character).Attack());
-                  image(hurtPlayer, (row-1)*50+1, col*50+1, 49, 49);
-                  if(map[row - 1][col].getPlayer().getHealth() <= 0 )
-                  {
-                    map[row-1][col].removePlayer();
-                    System.out.println("OOF");
-                    gameOver = true;
-                  }
-                }
-                else if (!map[row - 1][col].checkMonster() && !map[row-1][col].isWall()){
-                 map[row][col].removeMonster();
-                 map[row-1][col].MonsterOn((Monster)character);
-                 character.move('a');
-                 System.out.println("Monster loc: " + row + ", " + col);
-                }
-              }
-            }
-      }
-      
-    public void moveUp(Character character) 
-      {
-        System.out.println("Move up");
-          int row = character.getX();
-          int col = character.getY();
-          if(col-1>=0 && !gameOver){
-              if (character instanceof Player){
-              if(map[row][col-1].checkMonster()) 
-               {
-                   map[row][col-1].getMonster().setHealth(map[row][col-1].getMonster().getHealth() - ((Player)character).Attack());
-                   image(hurtMonster, row*50+1, (col-1)*50+1, 49, 49);
-                   if(map[row][col-1].getMonster().getHealth() <= 0)
-                     {
-                         enemies.remove(map[row][col-1].getMonster());
-                         map[row][col-1].removeMonster();
-                     }
-               }
-              else if(!(map[row][col-1].isWall()))
-               {
-               map[row][col].removePlayer();
-               map[row][col-1].PlayerOn((Player)character);
-               character.move('w');
-               System.out.println("Player loc: " + row + ", " + col );
-               }
-              }
-              else {
-                if (map[row][col-1].checkPlayer()){
-                  map[row][col-1].getPlayer().setHealth(map[row][col-1].getPlayer().getHealth() - ((Monster)character).Attack());
-                  image(hurtPlayer, row*50+1, (col-1)*50+1, 49, 49);
-                  if(map[row][col-1].getPlayer().getHealth() <= 0 )
-                  {
-                    map[row][col-1].removePlayer();
-                    System.out.println("OOF");
-                    gameOver = true;
-                  }
-                }
-                else if (!map[row][col-1].checkMonster() && !map[row][col-1].isWall()){
-                 map[row][col].removeMonster();
-                 map[row][col-1].MonsterOn((Monster)character);
-                 character.move('w');
-                 System.out.println("Monster loc: " + row + ", " + col );
-                }
-              }
-            }
-      }
-      
-    public void moveDown(Character character) 
-      {
-        System.out.println("Move down");
-          int row = character.getX();
-          int col = character.getY();
-          if(col+1<map[0].length && !gameOver){
-              if (character instanceof Player){ 
-              if(map[row][col+1].checkMonster()) 
-               {
-                   map[row][col+1].getMonster().setHealth(map[row][col+1].getMonster().getHealth() - ((Player)character).Attack());
-                   image(hurtMonster, row*50+1, (col+1)*50+1, 49, 49);
-                   if(map[row][col+1].getMonster().getHealth() <= 0)
-                     {
-                         enemies.remove(map[row][col+1].getMonster());
-                         map[row][col+1].removeMonster();
-                     }
-               }
-               else if(map[row][col +1].isExit())
-               {
-                 System.out.println("HELLO");
-                 nextRoom();
-                 System.out.println("HELLO");
-               }
-              else if(!(map[row][col+1].isWall()))
-               {
-               map[row][col].removePlayer();
-               map[row][col+1].PlayerOn((Player)character);
-               character.move('s');
-               System.out.println("Player loc: " + row + ", " + col);
-               }
-              }
-              else {
-                if (map[row][col+1].checkPlayer()){
-                  map[row][col+1].getPlayer().setHealth(map[row][col+1].getPlayer().getHealth() - ((Monster)character).Attack());
-                  image(hurtPlayer, row*50+1, (col+1)*50+1, 49, 49);
-                  if(map[row][col+1].getPlayer().getHealth() <= 0 )
-                  {
-                    map[row][col+1].removePlayer();
-                    System.out.println("OOF");
-                    gameOver = true;
-                  }
-                }
-                else if (!map[row][col+1].checkMonster() && !map[row][col+1].isWall()){
-                 map[row][col].removeMonster();
-                 map[row][col+1].MonsterOn((Monster)character);
-                 character.move('s');
-                 System.out.println("Monster loc: " + row + ", " + col);
-                }
-              }
-            }
-      }
- 
+  
     public void moveMain(char dir, Character character){
+      int x = 0;
+      int y = 0;
       if (dir == 'w'){
-        moveUp(character);
+        y = -1;
       }
       else if (dir == 'd'){
-        moveRight(character);
+        x = 1;
       }
       else if (dir == 's'){
-        moveDown(character);
+        y = 1;
       }
       else if (dir == 'a'){
-        moveLeft(character);
+        x = -1;
+      }
+      int row = character.getX();
+      int col = character.getY();
+      if(row + x < map.length && row + x >=0 && col + y <map[0].length && col + y >=0 && !gameOver){
+        if (character instanceof Player){
+          if(map[row + x][col + y].checkMonster()) 
+            {
+              map[row + x][col + y].getMonster().setHealth(map[row + x][col + y].getMonster().getHealth() - ((Player)character).Attack());
+              image(hurtMonster, (row+x)*50+1, (col+y)*50+1, 49, 49);
+              if(map[row + x][col + y].getMonster().getHealth() <= 0)
+                {
+                  enemies.remove(map[row+x][col + y].getMonster());
+                  map[row + x][col + y].removeMonster();
+                }
+            }
+          else if(map[row + x][col + y].isExit())
+            {
+              nextRoom();
+            }
+          else if(!(map[row+x][col+y].isWall()))
+            {
+              map[row][col].removePlayer();
+              map[row+x][col+y].PlayerOn((Player)character);
+              character.move(dir);
+            }
+        }
+        else {
+          if (map[row+x][col+y].checkPlayer()){
+            map[row+x][col+y].getPlayer().setHealth(map[row+x][col+y].getPlayer().getHealth() - ((Monster)character).Attack());
+            image(hurtPlayer, (row+x)*50+1, (col+y)*50+1, 49, 49);
+            if(map[row+x][col+y].getPlayer().getHealth() <= 0 )
+              {
+                map[row+x][col+y].removePlayer();
+                System.out.println("OOF");
+                gameOver = true;
+              }
+          }
+          else if (!map[row+x][col+y].checkMonster() && !map[row+x][col+y].isWall()){
+            map[row][col].removeMonster();
+            map[row+x][col+y].MonsterOn((Monster)character);
+            character.move(dir);
+          }
+        }
       }
     }
     
@@ -381,38 +230,38 @@ public class PixelGungeon{
       if(abs(upDist) > abs(sideDist)){
         if(upDist > 0) 
           {
-            moveUp(m);
+            moveMain('w',m);
           }
         else{
-          moveDown(m);
+          moveMain('s',m);
         }
       }
       else if(abs(upDist) < abs(sideDist)) {
         if(sideDist > 0)
           {
-            moveLeft(m);
+            moveMain('a',m);
           }
         else {
-          moveRight(m);
+          moveMain('d',m);
         }
       }
       else {
         if (floor(random(2)) == 0){
           if(upDist > 0) 
             {
-              moveUp(m);
+              moveMain('w',m);
             }
           else{
-            moveDown(m);
+            moveMain('s',m);
           }
         }
         else {
           if(sideDist > 0)
             {
-              moveLeft(m);
+              moveMain('a',m);
             }
           else {
-            moveRight(m);
+            moveMain('d',m);
           }
         }
       }
