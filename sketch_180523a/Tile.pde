@@ -17,7 +17,7 @@ public class Tile
   isWall = Wall;
   hasPlayer = false;
   hasMonster = false;
-  potionStore = false;
+  potionStore = null;
   isStart = start;
   isExit = Exit; 
     }
