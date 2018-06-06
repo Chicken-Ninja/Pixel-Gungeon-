@@ -9,11 +9,12 @@ public class PixelGungeon{
     private ArrayList<Monster> enemies = new ArrayList();
     private PImage playerModel, monsterModel, wallModel, stairModel, tileModel;
     private PImage hurtPlayer, hurtMonster;
-    private PImage healthBar, swordModel;
+    private PImage healthBar; //swordModel;
     private boolean gameOver;
     private int roomNumber = 0;
     private boolean initialRoom = true; 
     private int exitX, exitY;
+    private final char[] dirs = {'w','d','s','a'};
     
     public PixelGungeon(){
       //String [][] maps = new String[5][];
@@ -34,7 +35,7 @@ public class PixelGungeon{
       wallModel = loadImage("Wall.png");
       stairModel = loadImage("staircase.png");
       healthBar = loadImage("HealthBar.png");
-      swordModel = loadImage("sword.png");
+      //swordModel = loadImage("sword.png");
       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
       mapGen(maps[roomNumber]);
     }
@@ -63,16 +64,22 @@ public class PixelGungeon{
        System.out.println(map[0].length);
     }
 
+
+
   public int getPlayerHealth() 
   {
     return playerStore.getHealth();
   }
       
+      
+      
   public boolean getGameOver(){
     return gameOver;
   }
 
-    public void mapGen(String[] file){
+
+
+  public void mapGen(String[] file){
       System.out.println("mapGen()");
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
@@ -112,6 +119,8 @@ public class PixelGungeon{
       }
     }
 
+
+
   public int getRows(){
     return map.length;
   }
@@ -120,14 +129,13 @@ public class PixelGungeon{
     return map[0].length;
   }
   
+  
+  
   public String toString(){
   String dump = "";
   if (map.length==0){
       return "[]";
   }
-  
-  
-  
   for (int c=0; c<map.length; c++){
      for (int r=0; r<map[0].length; r++){
         if(map[r][c].isWall)
@@ -152,7 +160,9 @@ public class PixelGungeon{
   return dump;
   }
   
-    public void moveMain(char dir, Character character){
+  
+  
+  public void moveMain(char dir, Character character){
       int x = 0;
       int y = 0;
       if (dir == 'w'){
@@ -210,9 +220,12 @@ public class PixelGungeon{
           }
         }
       }
-    }
+  }
     
-    public void monsterMove(){
+    
+    
+    
+  public void monsterMove(){
     for (Monster m : enemies){
       int x = m.getX();
       int y = m.getY();
@@ -220,8 +233,9 @@ public class PixelGungeon{
       int b = playerStore.getY();
       int upDist = y - b;
       int sideDist = x- a;
-      System.out.println(upDist);
-      System.out.println(sideDist);
+      //System.out.println(upDist);
+      //System.out.println(sideDist);
+      if (abs(upDist) + abs(sideDist)<8){
       if(abs(upDist) > abs(sideDist)){
         if(upDist > 0) 
           {
@@ -260,18 +274,29 @@ public class PixelGungeon{
           }
         }
       }
+      }
+      else {
+        char dir = dirs[floor(random(4))];
+        moveMain(dir,m);
+      }
     }
-    }
+  }
+       
         
-    void playerMove(char dir) {
+        
+        
+  void playerMove(char dir) {
       //System.out.println("playerMove()");
       moveMain(dir, playerStore);
       if (playerStore.getX() == exitX && playerStore.getY() == exitY){
         nextRoom();
       }
-    }
+  }
     
-    public void display(){
+    
+    
+    
+  public void display(){
       //System.out.println("display()");
       for (int r=0; r<map.length; r++){
         for (int c=0; c<map[0].length; c++){
@@ -312,7 +337,7 @@ public class PixelGungeon{
       rect(0.20294*healthBar.width/4,0.21056*healthBar.height/4,playerStore.getHealth()/50.0*0.72769*healthBar.width/4,0.57545*healthBar.height/4);
       image(healthBar,0,0,healthBar.width/4, healthBar.height/4);
       //image(swordModel, playerStore.getX()*50, playerStore.getY()*50+35, swordModel.width/2, swordModel.height/2);
-    }
+  }
 }
     
 
