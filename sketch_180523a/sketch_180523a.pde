@@ -46,6 +46,13 @@ public class PixelGungeon{
       
        initialRoom = false;
        roomNumber++;
+       initialRoom = false;
+       int x = playerStore.getX();
+       int y = playerStore.getY();
+       System.out.println(map[x][y].checkPlayer());
+       map[x][y].removePlayer();
+       
+       roomNumber++;
        if (roomNumber<maps.length){
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
          enemies = new ArrayList();
@@ -55,6 +62,8 @@ public class PixelGungeon{
        else {
          gameOver = true;
        }
+       System.out.println(map.length);
+       System.out.println(map[0].length);
     }
 
   public int getPlayerHealth() 
@@ -91,8 +100,8 @@ public class PixelGungeon{
             }
             else if(initialRoom == false)
             {
-             
               map[r][c].PlayerOn(playerStore);
+              playerStore.setPos( r, c) ;
               
             }
           }
