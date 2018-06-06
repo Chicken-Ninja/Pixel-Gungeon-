@@ -8,5 +8,13 @@ public class Potion{
     isMana = mana;
   }
   
-  
+  public int getRestore() 
+    {
+      return potionRestore;
+    }
+  public boolean isMana() 
+  {
+    return isMana;
+  }
+}
   
