@@ -46,13 +46,10 @@ public class PixelGungeon{
       
        initialRoom = false;
        roomNumber++;
-       initialRoom = false;
        int x = playerStore.getX();
        int y = playerStore.getY();
        System.out.println(map[x][y].checkPlayer());
        map[x][y].removePlayer();
-       
-       roomNumber++;
        if (roomNumber<maps.length){
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
          enemies = new ArrayList();
@@ -71,8 +68,6 @@ public class PixelGungeon{
     return playerStore.getHealth();
   }
       
-
-
   public boolean getGameOver(){
     return gameOver;
   }
