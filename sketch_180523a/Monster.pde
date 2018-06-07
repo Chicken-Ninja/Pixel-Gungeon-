@@ -17,9 +17,20 @@ public class Monster extends Character{
       int a = (int)random (0 , 2) + tier;
       return a;
     }
+    
+  public Potion dropPotion() 
+  {
+    Potion b = new Potion(false);
+    return b;  
+  }
+  
+  
+    
+    
   
   public Boolean lootChance() 
   {
+    //Potion b = new Potion(false);
     int a = (int)random(0 , 20);
     if(a >= 0)
     {

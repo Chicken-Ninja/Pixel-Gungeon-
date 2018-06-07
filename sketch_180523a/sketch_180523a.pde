@@ -194,8 +194,7 @@ public class PixelGungeon{
                 {
                   if(map[row + x][col + y].getMonster().lootChance())
                   {
-                    Potion a = new Potion(false);
-                    map[row + x][col + y].potionOn(a);
+                    map[row + x][col + y].potionOn(map[row + x][col + y].getMonster().dropPotion());
                     sameTurn = true;
                   }
                   enemies.remove(map[row+x][col + y].getMonster());
