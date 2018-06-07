@@ -30,6 +30,7 @@ public class PixelGungeon{
         counter++;
       }
       gameOver = false;
+      potionStore = new ArrayList<Potion>();
       playerModel = loadImage("PlayerModel.png");
       hurtPlayer = loadImage("HurtPlayer.png");
       monsterModel = loadImage("MonsterModel.png");
@@ -212,14 +213,15 @@ public class PixelGungeon{
               map[row][col].removePlayer();
               map[row+x][col+y].PlayerOn((Player)character);
               character.move(dir);
-            }
+            
             if(map[row + x][col + y].hasPotion() && sameTurn == false)
            {
-             System.out.println(map[row + x][col + y].getPotion());
-             potionStore.add(map[row + x][col + y].getPotion());
+             Potion a = map[row + x][col + y].getPotion();
+             potionStore.add(a);
              map[row + x][col + y].removePotion();
              System.out.println("HELLO MOTO");
            }
+            }
         }
         else {
           if (map[row+x][col+y].checkPlayer()){
