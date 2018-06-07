@@ -38,7 +38,12 @@ public class Tile
         
     public Boolean hasPotion() 
     {
-      return hasPotion;
+      if(potionStore == null ) 
+      {
+        return false;
+      }
+      else { return true;
+      }
     }
     
     public void potionOn(Potion a) 
