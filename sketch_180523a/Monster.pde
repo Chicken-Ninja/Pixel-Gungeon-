@@ -18,6 +18,15 @@ public class Monster extends Character{
       return a;
     }
   
+  public Boolean lootChance() 
+  {
+    int a = (int)random(0 , 20);
+    if(a >= 15)
+    {
+      return true;
+    }
+    else { return false;}
+  }
   
   
     
