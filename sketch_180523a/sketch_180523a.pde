@@ -242,6 +242,24 @@ public class PixelGungeon{
         }
       }
   }
+  
+  public Boolean PotionInv()
+  {
+    for(int counter = 0; counter < potionStore.length; counter ++ )
+    {
+      if(potionStore[counter] != null)
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  
+  public void usePotion() 
+  {
+    if(
+    playerStore.setHealth(playerStore.getHealth() + 
     
     
     
@@ -371,6 +389,9 @@ boolean nextTurn;
      a.playerMove(key);
      if (key == 'w' || key == 'd' || key == 's' || key == 'a'){
        nextTurn = true;
+     if(key == '1')
+     {
+       
      }
    }
    
