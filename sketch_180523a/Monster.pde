@@ -21,7 +21,7 @@ public class Monster extends Character{
   public Boolean lootChance() 
   {
     int a = (int)random(0 , 20);
-    if(a >= 15)
+    if(a >= 0)
     {
       return true;
     }

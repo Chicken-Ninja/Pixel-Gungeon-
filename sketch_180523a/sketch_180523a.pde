@@ -245,9 +245,9 @@ public class PixelGungeon{
   
   public Boolean PotionInv()
   {
-    for(int counter = 0; counter < potionStore.length; counter ++ )
+    for(int counter = 0; counter < potionStore.size(); counter ++ )
     {
-      if(potionStore[counter] != null)
+      if(potionStore.get(counter) != null)
       {
         return true;
       }
@@ -258,8 +258,12 @@ public class PixelGungeon{
   
   public void usePotion() 
   {
-    if(
-    playerStore.setHealth(playerStore.getHealth() + 
+    if(PotionInv())
+    {
+    playerStore.setHealth(playerStore.getHealth() + potionStore.get(0).getRestore());
+    potionStore.remove(0);
+    }
+  }
     
     
     
@@ -386,13 +390,20 @@ PixelGungeon a;
 boolean nextTurn;
 
    void keyPressed(){
+     if(key == 'f')
+     {
+       System.out.println(a.getPlayerHealth());
+       a.usePotion();
+       System.out.println(a.getPlayerHealth());
+       
+     }
+     else {
      a.playerMove(key);
      if (key == 'w' || key == 'd' || key == 's' || key == 'a'){
        nextTurn = true;
-     if(key == '1')
-     {
-       
-     }
+     
+   }
+   }
    }
    
   void setup(){
