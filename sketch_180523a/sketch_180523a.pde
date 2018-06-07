@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class PixelGungeon{
     private Tile[][] map;
     private String[] files = {"data1.txt","data2.txt","data3.txt","data4.txt","data5.txt",
@@ -14,6 +16,7 @@ public class PixelGungeon{
     private int roomNumber = 0;
     private boolean initialRoom = true; 
     private int exitX, exitY;
+    private ArrayList<Potion> potionStore;
     private final char[] dirs = {'w','d','s','a'};
     
     public PixelGungeon(){
@@ -179,6 +182,7 @@ public class PixelGungeon{
       }
       int row = character.getX();
       int col = character.getY();
+      boolean sameTurn = false;
       if(row + x < map.length && row + x >=0 && col + y <map[0].length && col + y >=0 && !gameOver){
         if (character instanceof Player){
           if(map[row + x][col + y].checkMonster()) 
@@ -187,6 +191,12 @@ public class PixelGungeon{
               image(hurtMonster, (row+x)*50+1, (col+y)*50+1, 49, 49);
               if(map[row + x][col + y].getMonster().getHealth() <= 0)
                 {
+                  if(map[row + x][col + y].getMonster().lootChance())
+                  {
+                    Potion a = new Potion(false);
+                    map[row + x][col + y].potionOn(a);
+                    sameTurn = true;
+                  }
                   enemies.remove(map[row+x][col + y].getMonster());
                   map[row + x][col + y].removeMonster();
                 }
@@ -195,12 +205,21 @@ public class PixelGungeon{
             {
               nextRoom();
             }
+           
+             
           else if(!(map[row+x][col+y].isWall()))
             {
               map[row][col].removePlayer();
               map[row+x][col+y].PlayerOn((Player)character);
               character.move(dir);
             }
+            if(map[row + x][col + y].hasPotion() && sameTurn == false)
+           {
+             System.out.println(map[row + x][col + y].getPotion());
+             potionStore.add(map[row + x][col + y].getPotion());
+             map[row + x][col + y].removePotion();
+             System.out.println("HELLO MOTO");
+           }
         }
         else {
           if (map[row+x][col+y].checkPlayer()){
@@ -304,6 +323,7 @@ public class PixelGungeon{
           {
             image(wallModel, r*50, c*50, 50, 50);
           }
+          
           else if(map[r][c].checkPlayer())
           {
             if (map[r][c].isStart() || map[r][c].isExit()){
@@ -314,6 +334,7 @@ public class PixelGungeon{
             }
             image(playerModel, r*50+1, c*50+1, 49, 49);
           }
+         
           else if(map[r][c].checkMonster())
           {
             image(tileModel, r*50, c*50, 50, 50);
