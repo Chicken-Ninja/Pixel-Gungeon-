@@ -259,8 +259,13 @@ public class PixelGungeon{
   {
     if(PotionInv())
     {
+      
     playerStore.setHealth(playerStore.getHealth() + potionStore.get(0).getRestore());
     potionStore.remove(0);
+    if(playerStore.getHealth() > 50)
+    {
+      playerStore.setHealth(50);
+    }
     }
   }
     
