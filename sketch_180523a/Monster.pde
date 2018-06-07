@@ -32,7 +32,7 @@ public class Monster extends Character{
   {
     //Potion b = new Potion(false);
     int a = (int)random(0 , 20);
-    if(a >= 0)
+    if(a >= 15)
     {
       return true;
     }

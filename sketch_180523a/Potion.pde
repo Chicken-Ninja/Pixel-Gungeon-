@@ -4,7 +4,7 @@ public class Potion{
   
   public Potion(Boolean mana) 
   {
-    potionRestore = (int) random (10,20);
+    potionRestore = (int) random (5,15);
     isMana = mana;
   }
   
