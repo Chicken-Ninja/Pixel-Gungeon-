@@ -10,7 +10,7 @@ public class PixelGungeon{
     private ArrayList<Monster> enemies = new ArrayList();
     private PImage playerModel, monsterModel, wallModel, stairModel, tileModel, doorModel;
     private PImage hurtPlayer, hurtMonster;
-    private PImage healthBar, keyModel;//swordModel;
+    private PImage healthBar, keyModel, potionModel;//swordModel;
     private boolean gameOver;
     private int roomNumber = 0;
     private boolean initialRoom = true; 
@@ -36,8 +36,11 @@ public class PixelGungeon{
       hurtMonster = loadImage("HurtMonster.png");
       tileModel = loadImage("FloorTile.png");
       wallModel = loadImage("Wall.png");
+      doorModel = loadImage("door.png");
+      keyModel = loadImage("key.png");
       stairModel = loadImage("staircase.png");
       healthBar = loadImage("HealthBar.png");
+      potionModel = loadImage("potion.png");
       //swordModel = loadImage("sword.png");
       map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
       mapGen(maps[roomNumber]);
@@ -215,9 +218,10 @@ public class PixelGungeon{
             }
           else if(map[row+x][col+y].isDoor() && character.hasKey()){
             character.setKey(false);
-            System.out.println(character.hasKey());
+            //System.out.println(character.hasKey());
             map[row][col].removePlayer();
             map[row+x][col+y].PlayerOn((Player)character);
+            map[row+x][col+y].setDoor(false);
             character.move(dir);
           } 
              
@@ -382,15 +386,26 @@ public class PixelGungeon{
             image(tileModel, r*50, c*50, 50, 50);
             image(monsterModel, r*50+1, c*50+1, 49, 49);
             fill(255);
+            rect(r*50+0.20294*healthBar.width/8,c*50-15+0.21056*healthBar.height/8,0.72769*healthBar.width/8,0.57545*healthBar.height/8);
+            fill(255,0,0);
+            rect(r*50+0.20294*healthBar.width/8,c*50-15+0.21056*healthBar.height/8,map[r][c].getMonster().getHealth()/40.0*0.72769*healthBar.width/8,0.57545*healthBar.height/8);
+            image(healthBar,r*50,c*50-15,healthBar.width/8, healthBar.height/8);
+            /*fill(255);
             rect(r*50, c*50-15,50,10);
             fill(255,0,0);
-            rect(r*50,c*50-15,map[r][c].getMonster().getHealth()/40.0*50,10);
+            rect(r*50,c*50-15,map[r][c].getMonster().getHealth()/40.0*50,10);*/
           }
           else if(map[r][c].isExit() || map[r][c].isStart()){
             image(stairModel, r*50, c*50, 50, 50);
           }
+          else if(map[r][c].isDoor()){
+            image(doorModel, r*50, c*50, 50, 50);
+          }
           else{
             image(tileModel, r*50, c*50, 50, 50);
+            if (map[r][c].hasPotion()){
+              image(potionModel, r*50+5, c*50+5, potionModel.width/4, potionModel.height/4);
+            }
           }
         }
       }
@@ -400,6 +415,9 @@ public class PixelGungeon{
       rect(0.20294*healthBar.width/4,0.21056*healthBar.height/4,playerStore.getHealth()/50.0*0.72769*healthBar.width/4,0.57545*healthBar.height/4);
       image(healthBar,0,0,healthBar.width/4, healthBar.height/4);
       //image(swordModel, playerStore.getX()*50, playerStore.getY()*50+35, swordModel.width/2, swordModel.height/2);
+      if (playerStore.hasKey()){
+        image(keyModel, healthBar.width/4 + 2, 3, keyModel.width/8, keyModel.height/8);
+      }
   }
 }
     
