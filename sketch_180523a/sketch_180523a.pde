@@ -57,6 +57,7 @@ public class PixelGungeon{
        int y = playerStore.getY();
        System.out.println(map[x][y].checkPlayer());
        map[x][y].removePlayer();
+       playerStore.setKey(false);
        if (roomNumber<maps.length){
          map = new Tile[maps[roomNumber][0].length()][maps[roomNumber].length];
          enemies = new ArrayList();
@@ -90,16 +91,16 @@ public class PixelGungeon{
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
           if (file[c].charAt(r) == '#'){
-            map[r][c] = new Tile(r,c,true,false , false ,false );
+            map[r][c] = new Tile(r,c,'#');
           }
           else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, false , false);
+            map[r][c] = new Tile(r,c,'M');
             Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
           }
           else if(file[c].charAt(r) == 'S'){
-            map[r][c] = new Tile(r,c,false, true, false , false);
+            map[r][c] = new Tile(r,c,'S');
             if(initialRoom == true)
             {
               Player b = new Player(r,c);
@@ -114,17 +115,17 @@ public class PixelGungeon{
             }
           }
           else if(file[c].charAt(r) == 'E'){
-            map[r][c] = new Tile(r,c,false,false,true , true);
+            map[r][c] = new Tile(r,c,'E');
             exitX = r;
             exitY = c;
           }
          
           else if (file[c].charAt(r) == 'D'){
-            map[r][c] = new Tile(r,c,false,false,false,true);
+            map[r][c] = new Tile(r,c,'D');
             enemies.get(floor(random(enemies.size()))).setKey(true);
           }
           else{
-            map[r][c] = new Tile(r,c,false, false , false , false);
+            map[r][c] = new Tile(r,c,' ');
           }
         }
       }

@@ -1,6 +1,12 @@
 public class Tile 
 {
-    Boolean hasPlayer,hasMonster,isWall,isExit,isStart,hasPotion,isDoor;
+    boolean hasPlayer = false;
+    boolean hasMonster = false;
+    boolean isWall = false;
+    boolean isExit = false;
+    boolean isStart = false;
+    boolean hasPotion = false;
+    boolean isDoor = false;
     int row;
     int col; 
     Monster monsterStore = null; 
@@ -10,17 +16,22 @@ public class Tile
     
     
 
-    public Tile(int x , int y , Boolean Wall, Boolean start, Boolean Exit ,boolean door) 
+    public Tile(int x , int y , char type) 
     {
   row = x; 
   col = y; 
-  isWall = Wall;
-  hasPlayer = false;
-  hasMonster = false;
-  potionStore = null;
-  isStart = start;
-  isExit = Exit; 
-  isDoor = door; 
+  if (type == '#'){
+    isWall = true;
+  }
+  else if (type == 'S'){
+    isStart = true;
+  }
+  else if (type == 'E'){
+    isExit = true;
+  }
+  else if (type == 'D'){
+    isDoor = true;
+  }
     }
     
     public Boolean isWall() 
@@ -61,12 +72,13 @@ public class Tile
     {
       if(hasPotion())
       {
-        Potion a = potionStore; 
         potionStore = null;
         hasPotion = false;
-       
       }
     }
+    
+    
+    
     public void setDoor(boolean value) 
     {
       isDoor = value; 
