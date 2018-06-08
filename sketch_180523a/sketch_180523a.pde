@@ -63,8 +63,8 @@ public class PixelGungeon{
        else {
          gameOver = true;
        }
-       System.out.println(map.length);
-       System.out.println(map[0].length);
+       //System.out.println(map.length);
+       //System.out.println(map[0].length);
     }
 
 
@@ -90,13 +90,13 @@ public class PixelGungeon{
             map[r][c] = new Tile(r,c,true,false , false ,false );
           }
           else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, false , true);
+            map[r][c] = new Tile(r,c,false,false, false , false);
             Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
           }
           else if(file[c].charAt(r) == 'S'){
-            map[r][c] = new Tile(r,c,false, true, false , true);
+            map[r][c] = new Tile(r,c,false, true, false , false);
             if(initialRoom == true)
             {
               Player b = new Player(r,c);
@@ -114,6 +114,11 @@ public class PixelGungeon{
             map[r][c] = new Tile(r,c,false,false,true , true);
             exitX = r;
             exitY = c;
+          }
+         
+          else if (file[c].charAt(r) == 'D'){
+            map[r][c] = new Tile(r,c,false,false,false,true);
+            enemies.get(floor(random(enemies.size()))).setKey(true);
           }
           else{
             map[r][c] = new Tile(r,c,false, false , false , false);
@@ -191,6 +196,10 @@ public class PixelGungeon{
               image(hurtMonster, (row+x)*50+1, (col+y)*50+1, 49, 49);
               if(map[row + x][col + y].getMonster().getHealth() <= 0)
                 {
+                  if (map[row+x][col+y].getMonster().hasKey()){
+                    map[row+x][col+y].getMonster().setKey(false);
+                    character.setKey(true);
+                  }
                   if(map[row + x][col + y].getMonster().lootChance())
                   {
                     map[row + x][col + y].potionOn(map[row + x][col + y].getMonster().dropPotion());
@@ -204,9 +213,15 @@ public class PixelGungeon{
             {
               nextRoom();
             }
-           
+          else if(map[row+x][col+y].isDoor() && character.hasKey()){
+            character.setKey(false);
+            System.out.println(character.hasKey());
+            map[row][col].removePlayer();
+            map[row+x][col+y].PlayerOn((Player)character);
+            character.move(dir);
+          } 
              
-          else if(!(map[row+x][col+y].isWall()))
+          else if(!(map[row+x][col+y].isWall()) && !(map[row+x][col+y].isDoor()))
             {
               map[row][col].removePlayer();
               map[row+x][col+y].PlayerOn((Player)character);
@@ -232,7 +247,7 @@ public class PixelGungeon{
                 gameOver = true;
               }
           }
-          else if (!map[row+x][col+y].checkMonster() && !map[row+x][col+y].isWall()){
+          else if (!map[row+x][col+y].checkMonster() && !map[row+x][col+y].isWall() && !map[row+x][col+y].isDoor()){
             map[row][col].removeMonster();
             map[row+x][col+y].MonsterOn((Monster)character);
             character.move(dir);

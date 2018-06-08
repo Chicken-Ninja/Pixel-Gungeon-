@@ -27,6 +27,10 @@ public class Tile
     {
   return isWall;
     }
+    public Boolean isDoor()
+    {
+      return isDoor;
+    }
       
     public Boolean isExit() 
   {
