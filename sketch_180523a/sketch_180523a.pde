@@ -3,15 +3,14 @@ import java.util.*;
 public class PixelGungeon{
     private Tile[][] map;
     private String[] files = {"data1.txt","data2.txt","data3.txt","data4.txt","data5.txt",
-                              "data6.txt","data7.txt","data8.txt","data9.txt","data10.txt",
-                              "data11.txt","data12.txt","data13.txt","data14.txt","data15.txt",
-                              "data16.txt","data17.txt","data18.txt","data19.txt","data20.txt",};
+                              "data6.txt","data7.txt","data8.txt","data9.txt","data10.txt"};
+                              
     private String[][] maps = new String[5][0];
     private Player playerStore;
     private ArrayList<Monster> enemies = new ArrayList();
-    private PImage playerModel, monsterModel, wallModel, stairModel, tileModel;
+    private PImage playerModel, monsterModel, wallModel, stairModel, tileModel, doorModel;
     private PImage hurtPlayer, hurtMonster;
-    private PImage healthBar; //swordModel;
+    private PImage healthBar, keyModel;//swordModel;
     private boolean gameOver;
     private int roomNumber = 0;
     private boolean initialRoom = true; 
@@ -88,16 +87,16 @@ public class PixelGungeon{
       for (int c=0; c<file.length; c++){
         for (int r=0; r<file[0].length(); r++){
           if (file[c].charAt(r) == '#'){
-            map[r][c] = new Tile(r,c,true,false , false);
+            map[r][c] = new Tile(r,c,true,false , false ,false );
           }
           else if (file[c].charAt(r) == 'M'){
-            map[r][c] = new Tile(r,c,false,false, false);
+            map[r][c] = new Tile(r,c,false,false, false , true);
             Monster m = new Monster(r,c , 1);
             enemies.add(m);
             map[r][c].MonsterOn(m);
           }
           else if(file[c].charAt(r) == 'S'){
-            map[r][c] = new Tile(r,c,false, true, false);
+            map[r][c] = new Tile(r,c,false, true, false , true);
             if(initialRoom == true)
             {
               Player b = new Player(r,c);
@@ -112,12 +111,12 @@ public class PixelGungeon{
             }
           }
           else if(file[c].charAt(r) == 'E'){
-            map[r][c] = new Tile(r,c,false,false,true);
+            map[r][c] = new Tile(r,c,false,false,true , true);
             exitX = r;
             exitY = c;
           }
           else{
-            map[r][c] = new Tile(r,c,false, false , false);
+            map[r][c] = new Tile(r,c,false, false , false , false);
           }
         }
       }

@@ -10,6 +10,7 @@ public class Player extends Character{
     y = _y;
     weaponStore = new Weapon(5 , 1 , 1 , "Excalibur");
     armorStore = new Armor(3 , 1 , "Junkan");
+    hasKey = false;
   }
   
   public Player(int h, int m, String n, int _x, int _y){
@@ -20,6 +21,7 @@ public class Player extends Character{
     y = _y;
     weaponStore = new Weapon(5 , 1 , 1 , "Excalibur");
     armorStore = new Armor(3 , 1 , "Junkan");
+    hasKey = false;
   }
   
   public int Attack()

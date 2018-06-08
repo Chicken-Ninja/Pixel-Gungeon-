@@ -10,6 +10,7 @@ public class Monster extends Character{
     tier = level;
     x = _x;
     y = _y;
+    hasKey = false;
   }
   
   public int Attack() 

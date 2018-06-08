@@ -4,6 +4,7 @@ abstract class Character
     String name;
   int x, y;
   char dir;
+  Boolean hasKey;
 
     public int getHealth () 
     {
@@ -43,6 +44,16 @@ abstract class Character
     public int getY()
     {
   return y;
+    }
+    
+    public void setKey(boolean maybe) 
+    {
+      hasKey = maybe;
+    }
+    
+    
+    public boolean hasKey(){
+      return hasKey;
     }
 
     public void setPos(int _x, int _y)
